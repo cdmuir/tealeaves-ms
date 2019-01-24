@@ -104,7 +104,7 @@ gp_exe3 <- ggplot(exe3, aes(log10(Ar), T_leaf - T_air, linetype = leafsize1)) +
   facet_grid(~ flow) +
   xlab("Archemides Number (log-scale)") +
   ylab("Leaf - Air Temperature [K]") +
-  geom_vline(xintercept = log10(c(1, 10))) +
+  geom_vline(xintercept = log10(c(0.1, 10))) +
   theme_bw() +
   theme(axis.text = element_text(size = 10),
         axis.title = element_text(size = 11),
@@ -145,7 +145,9 @@ gp_exe4 <- ggplot(filter(exe4, !is.na(E)),
         legend.text = element_text(size = 10),
         legend.title = element_text(size = 11),
         legend.position = "right",
-        legend.key.height = unit(1, "cm")) +
+        legend.key.height = unit(1, "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
   NULL
 
 ggsave("figures/gp_exe4.pdf", width = 3.25, height = 3.25)
