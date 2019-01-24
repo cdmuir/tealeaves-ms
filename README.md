@@ -9,11 +9,14 @@ More information about the study is available on [github](https://github.com/cdm
 ## Downloading data and code 
 
 1. Download or clone this repository to your machine.
+<<<<<<< HEAD
 
 ```
 git clone git@github.com:cdmuir/tealeaves-ms.git
 ```
 
+=======
+>>>>>>> 687bfb5d1b28b6951d33c9542a3a179fd2271c9c
 2. Open `tealeaves-ms.Rproj` in [RStudio](https://www.rstudio.com/)
 
 ## Generating manuscript
