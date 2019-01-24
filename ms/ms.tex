@@ -6,7 +6,6 @@
 \usepackage[labelfont=bf]{caption}
 \usepackage{fancyhdr}
   \pagestyle{fancy}
-  %\fancyhf{}
   \renewcommand{\headrulewidth}{0pt} % remove line below header
   \lhead{}
   \chead{\textit{Leaf energy budgets in R}} % running head
@@ -51,6 +50,7 @@ Technical Report
 {\let\newpage\relax\maketitle}
 
 $^1$ Department of Botany, University of Hawai'i, Honolulu, Hawai'i 96822, USA \\
+\\
 Phone: +1 808-688-3478 \\
 Email: cdmuir@hawaii.edu \\
 \\
@@ -58,7 +58,7 @@ Funding: University of Hawai'i \\
 \\
 \section*{Abstract}
 
-Make it easier for those working on plant ecophysiology to carry out advances studies of leaf temperature and its consequences.
+Plants must regulate leaf temperature to optimize photosynthesis, control water loss, and prevent damage caused by overheating or freezing. Physical models of leaf energy budgets calculate the energy fluxes and leaf temperatures for given a set leaf and environmental parameters. These models can provide deep insight into the variation in leaf form and function, but there are few computational tools available to use these models. Here I introduce a new R package called \tealeaves to make complex leaf energy budget models accessible to a broader array of plant scientists. This package enables novice users to start modeling leaf energy budgets quickly while allowing experts customize their parameter settings. The code is open source, freely available, and readily integrates with other R tools for scientific computing. This paper describes the current functionality of \tealeaves, but new features will be added in future releases. This software tool will advance new research on leaf thermal physiology to advance our understanding of basic and applied plant science.
 
 \section*{Keywords}
 
@@ -68,88 +68,12 @@ boundary layer, energy balance, leaf size, leaf temperature, mathematical model,
 
 Tom Buckley kindly explained how to convert conductance from molar to `engineering' units.
 
-%reminder:
-% free convection - radiator, diff in air density
-% forced convection - fan, external pressure gradient
-
-% reviewers:
-% Tom Buckley
-% Martjin Slot
-% Adrienne Nicotra
-% Andrea Leigh
-% Bill Smith
-% Okajima or Ichiro Terashima
-% Joseph Stinazano
-% Remko Duurmsma
-% Schymanski SJ
-% Sean Michelatz
-% Paul Drake, Hugo de Boer, Erik Venkelaas
-
 \clearpage
 
 
-%%%%% NOTES %%%%%
-
-% According to Slot and Winter 2017 PCE: Above TOpt, both stomatal and biochemical factors become increasingly limiting to net photosynthesis (Sage & Kubien, 2007), but biochemical parameters ...
-
-% Rogers et al NP - recommended better understanding of how leaf temperature affects photosynthesis in global change models. This could be a helpful tool for incorporating leaf temperature.
-
-% Slot and Winter 2017 NP - found Topt near air temperature for all species. no specialist-generalist tradeoff.
-% Sage and Kubien 2007
-
-% history
-% introduction of "boundary layer"
-% Hofman 1955, 1956
-% Hofmann, G., Die Thennodynamik der Taubildung (Ber. d. Deut. Wetterdienstes, 3, Nr. 18, Bad Kissingen, Germany, 45 pp., 1955)
-% Hofmann, G., Planta, 47, 303-22 (1956)
-% Raschke 1956. Raschke, K., Planta, 48,200-38 (1956)
-
-% introduction of energy balance (as cited in Raschke 1960)
-% Brown and Escombe. 1905. Proc. Roy. Soc. (London) B, 76, 29-111 (1905)
-% Buttner 1934: Die Obertragung durch Leitung und Konvektion, Verdunstung und Strahlung in Bioklimatologie und Meteor% gie (Abh. preuss. Meteorol. Institut., 10, Nr. 5, 37 pp., 1934)
-% Huber. 1935. Der Wiirmehaushalt der Pflanzen
-
-% reviews
-% Raschke 1960
-% Gutschick 2016
-
-% leaf energy 
-% example papers:
-% leaf size (theory?): 
-%   Gates 1965
-%   Drake et al 1970 - don't have
-%   Vogel 1970 - don't have
-%   Parkhurst and Loucks 1972
-%   Givnish 1979 - don't have
-%   Grace et al 1980 - don't have
-%   Okajima et al 2012
-% leaf size (empirical): 
-%   McDonald et al 2003
-%   Leigh et al 2017
-%   Yates et al 2010 - small leaves transpire more (but prob due also to g_s)
-%   Wright et al 2017 - 
-%
-% effects of evaporation
-%   Gates_1968 - review theory and empirical
-%   Yates et al 2010 focused on evap.
-
-% effect on photosynthesis. somewhat recent review:
-%   Bernacchi et al 2009 in Photosynthesis in silico
-%
-% Michelatz et al 2016 - linkages to global trait spectra or something...
-% Blonder and Michelatz 2018 - T_leaf vs T_air relationship (thermoregulation)
-
-% Leigh et al 2012 NP - leaf thickness and tau
-% PLoS ONE Paper I had up from guy at harbard, now davis (Z-lab)
-% 
-% Leigh et al 2017:
-% find that effective leaf width explains cooling time constant best
-% "wind speeds within rainforest canopies can regularly be < 0.5 m/s (Martin et al 1999, Stokes et al. 2006, Meinzer et al. 1995)
-
-% term 'characteristic dimension' is from Taylor 1975
-
-
 % paragraph 1: overarching problem - from temperature writ large to leaf temperature specifically
+
+\section*{Summary }
 
 \section*{Introduction}
 
@@ -169,11 +93,10 @@ The goal of this study is therefore to develop software that models leaf tempera
 
 \section*{Methods}
 
-% Note: this re-does Foster and Smith 1987 model but makes it easy to look at lots of gradients they did not (can I recreate some classic results?)
-
 Leaf energy budgets consist of incoming radiation from solar (aka shortwave) and thermal infrared (aka longwave) sources. Leaves lose energy through infrared re-radiation, sensible heat loss, and latent heat loss during transpiration. When leaves reach a thermal equilibrium with their environment - generally within a few minutes - these incoming and outgoing energy sources balance one another out. Formally, one solves for the leaf temperature at which:
 
 \begin{equation}
+  \label{eq:energy_budget}
   R_\mathrm{abs} = S_\mathrm{r} + H + L
 \end{equation}
 
@@ -216,8 +139,6 @@ The density of dry air ($P_\mathrm{a}$) is calculated as in \citeauthor{Foster_S
 \begin{equation}
   P_\mathrm{a} = \frac{2 P}{R_\mathrm{air} (T_\mathrm{leaf} - T_\mathrm{air})}
 \end{equation}
-
-% INTERESTING - TECHNICALLY, $(T_\mathrm{leaf} - T_\mathrm{air})$ factors out here...
 
 \pkg{tealeaves} sums the boundary layer conductance to heat for both the upper and lower surface following \citeauthor{Foster_Smith_1986} (\citeyear{Foster_Smith_1986}), assuming a horizontal leaf orientation:
 
@@ -326,7 +247,7 @@ As with $\mathit{Nu}$, $\mathit{Sh}$ is calculated assuming mixed convection:
   \mathit{Sh} ^ {3.5} = \mathit{Sh}_\mathrm{forced} ^ {3.5} + \mathit{Sh}_\mathrm{free} ^ {3.5}
 \end{equation}
 
-Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total conductance to water vapour (Equation \ref{eq:g_tw}) and the water vapour gradient (Equation \ref{eq:d_wv}):
+Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total conductance to water vapour (Eqn \ref{eq:g_tw}) and the water vapour gradient (Eqn \ref{eq:d_wv}):
 
 \begin{equation}
   E = g_\mathrm{tw} d_\mathrm{wv}
@@ -334,7 +255,7 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
 
 \subsection*{Solving in R}
 
-R is a fully open source programming language for statistical computing that allows users to develop their own packages with new functions. \tealeaves~takes three sets of parameter inputs: leaf parameters, environmental parameters, and physical constants (see Table \ref{table:table_input}). The package provides reasonable defaults, but users can input new values to address their question, as I demonstrate in the next section. With one or more parameter sets, \tealeaves~uses the \code{uniroot} function in R base package \pkg{stats} to find the \tleaf~that balances the leaf energy budget. It outputs the equilibrium \tleaf~and energy fluxes in a table for analysis and visualization.
+R is a fully open source programming language for statistical computing that allows users to develop their own packages with new functions. \tealeaves~takes three sets of parameter inputs: leaf parameters, environmental parameters, and physical constants (see Table \ref{table:table_input}). The package provides reasonable defaults, but users can input new values to address their question, as I demonstrate in the next section. With one or more parameter sets, \tealeaves~uses the \code{uniroot} function in R base package \pkg{stats} to find the \tleaf~that balances the leaf energy budget (Eqn \ref{eq:energy_budget}). It outputs the equilibrium \tleaf~and energy fluxes in a table for analysis and visualization.
 
 Unlike previous leaf energy models, \tealeaves~ensures that calculations are technically correct by assigning stadard SI units with the R package \pkg{units} \cite{Pebesma_etal_2016}. Every parameter and calculated value must have correctly assigned units. If units are not properly defined, \tealeaves~will produce an error because it is unable to convert values. For speed, there is also a ``unitless'' version that forgoes careful unit checks during calculations. To ensure accuracy, these unitless functions are tested against their counterparts with units using the \pkg{testthat} package \citep{Wickham_2011}. Other R packages that contributed to \tealeaves~are \pkg{crayon} \citep{Csardi_2017}, \pkg{dplyr} \citep{Wickham_etal_2018}, \pkg{glue} \citep{Hester_2018}, \pkg{furrr} \citep{Vaughan_Dancho_2018}, \pkg{future} \citep{Bengtsson_2018}, \pkg{ggplot} \citep{Wickham_2016}, \pkg{magrittr} \citep{Bache_Wickham_2014}, \pkg{purrr} \citep{Henry_Wickham_2018b}, \pkg{rlang} \citep{Henry_Wickham_2018a}, \pkg{stringr} \citep{Wickham_2018}, \pkg{tidyr} \citep{Wickham_Henry_2018}.
 
@@ -405,7 +326,7 @@ Scientists have used energy budgets to model leaf temperature for over a century
 \tealeaves~provides a computational platform for beginners and experts alike to model leaf temperature using energy budgets. Previously, researchers wanting to implement sophisticated leaf energy budget models that required numerical solutions had to write their model and learn a numerical algorithm to solve it. Most often, these solutions are not published and/or are not open source. This slows down research for nonspecialists by introducing unnecessary barriers and can be error-prone. For example, the current \tealeaves~model relies on previous work by \citeauthor{Foster_Smith_1986} (\citeyear{Foster_Smith_1986}). Without a platform like \tealeaves, extending their work required developing the mathematical and computational tools \textit{de novo} every time. Also, the published version \citeauthor{Foster_Smith_1986} (\citeyear{Foster_Smith_1986}) contains several small errors and tyographical inconsistencies in the equations. While these are most likely mistakes made during typesetting and publication, without open source code, it is very challenging to determine if these mistakes also occurred in their computer simulations. Transparent, open source code does not prevent mistakes, but makes it easier for the community to discover mistakes and fix them faster. 
 
 % limitations and future directions
-Ultimately, the goal of \tealeaves~is to provide a platform for implementing very complex and fully customizable energy budget models. Such models may take too much computational time to be be useful for large-scale ecosystem models, but they can help understand a wider range of fascinating and poorly understood leaf anatomical and morphological features, as well as identify under what conditions simpler leaf temperature models are adequate. Currently, \tealeaves~has several limitations that I plan to address in future releases. It has rather simple models of infrared radiation and direct versus diffuse radiation. Ideally, it would be better if users could supply their own functions to calculate these parameters from the total irradiance. The model also assumes leaves are horizontal, whereas leaf orientation varies widely. Following previous authors, I modeled heat transfer as a mixed convection (Equations \ref{eq:nusselt} and \ref{eq:sherwood}, but this may not adequately describe real leaf behavior \citep{Roth-Nebelsick_2001}. \tealeaves~calculates equilibrium as opposed to transient behavior, which may takes several minutes to reach. Finally, the model assumes a single homogenous leaf temperature rather than using finite element modeling to calculate leaf temperature gradients across leaves of different shapes. These are important limitations of the current software which can be addressed in future work.
+Ultimately, the goal of \tealeaves~is to provide a platform for implementing very complex and fully customizable energy budget models. Such models may take too much computational time to be be useful for large-scale ecosystem models, but they can help understand a wider range of fascinating and poorly understood leaf anatomical and morphological features, as well as identify under what conditions simpler leaf temperature models are adequate. Currently, \tealeaves~has several limitations that I plan to address in future releases. It has rather simple models of infrared radiation and direct versus diffuse radiation. Ideally, it would be better if users could supply their own functions to calculate these parameters from the total irradiance. The model also assumes leaves are horizontal, whereas leaf orientation varies widely. Following previous authors, I modeled heat transfer as a mixed convection (Eqns \ref{eq:nusselt} and \ref{eq:sherwood}, but this may not adequately describe real leaf behavior \citep{Roth-Nebelsick_2001}. \tealeaves~calculates equilibrium as opposed to transient behavior, which may takes several minutes to reach. Finally, the model assumes a single homogenous leaf temperature rather than using finite element modeling to calculate leaf temperature gradients across leaves of different shapes. These are important limitations of the current software which can be addressed in future work.
 
 In conclusion, \tealeaves~provides an open source software platform for leaf energy balance models in R. Leaf energy balance models are highly useful tools for understanding plant form and function and new computational tools will make these models more broadly accessible, advancing basic and applied plant science.
 
@@ -415,6 +336,23 @@ In conclusion, \tealeaves~provides an open source software platform for leaf ene
 
 \bibliography{refs}
 \bibliographystyle{newphyt}
+
+\clearpage
+
+%--------------------------------------------------
+% Figures
+%--------------------------------------------------
+
+\begin{figure}[ht]
+\centerline{\includegraphics[width=\textwidth,height=\textwidth]{../figures/fig1.pdf}}
+\end{figure}
+
+\begin{figure} [t!]
+\caption{Extended examples of \tealeaves. Code to generate these examples is provided in the Supporting Information. A. The temperature of smaller leaves is more closely coupled to air temperature. Each line represents a different leaf size (small, dashed line; medium, dotted line; large, solid line) and the leaf-to-air temperature differential ($y$-axis) over a gradient of air temperature ($x$-axis). B. Greater stomatal conductance cools leaves. Each line represents a different stomatal conductance (low, dashed line, 1 [$\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$]; medium, dotted line, 3 [$\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$]; high, solid line, 5 [$\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$]) and the leaf-to-air temperature differential ($y$-axis) over a gradient of irradiance ($x$-axis). C. Forced convection dominates in small leaves; free convection dominates in very large leaves. Leaf size is indicated by line type as in Panel A. Horizontal lines indicate approximate shifts from forced convection ($Ar < 0.1$), mixed convection ($0.1 < Ar < 10$), and free convection ($Ar > 10$). Small leaves always experience forced convection, leading to lower leaf temperature compared to large leaves experiencing free convection. D. Amphistomatous leaves (Stomatal Ratio $\sim$ 0.5) evaporate more than hypo- or hyperstomatous leaves (Stomatal Ratio $\sim$ 0 or 1, respectively), especially under free convection (low wind speed, $u$).}
+\label{fig:fig1}
+\end{figure}
+
+\clearpage
 
 %--------------------------------------------------
 % Tables
@@ -517,4 +455,114 @@ In conclusion, \tealeaves~provides an open source software platform for leaf ene
 
 \label{table:table_output}
 \end{table}
+
+%--------------------------------------------------
+% Supporting Information
+%--------------------------------------------------
+
+\clearpage
+
+\section*{Supporting Information}
+
+R code for running extended examples. 
+\begin{Schunk}
+\begin{Sinput}
+> # Extended example 1: 
+> # leaf size and leaf-to-air temperature differential
+> 
+> library(tealeaves)
+> cs <- make_constants()
+> lp  <- make_leafpar(
++   replace = list(
++     leafsize = set_units(c(0.005, 0.1, 0.5), "m")
++   )
++ )
+> ep <- make_enviropar(
++   replace = list(
++     S_sw = set_units(660, "W/m^2"),
++     T_air = set_units(seq(278.15, 308.15, 5), "K")
++   )
++ )
+> exe1 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, 
++                 unitless = TRUE, parallel = TRUE)
+> 
+\end{Sinput}
+\end{Schunk}
+
+\clearpage
+
+\begin{Schunk}
+\begin{Sinput}
+> # Extended example 2: 
+> # Solar radiation and leaf-to-air temperature differential
+> 
+> library(tealeaves)
+> lp  <- make_leafpar(
++   replace = list(
++     g_sw = set_units(c(1, 3, 5), "umol/m^2/s/Pa")
++   )
++ )
+> ep <- make_enviropar(
++   replace = list(
++     S_sw = set_units(seq(50, 950, 100), "W/m^2")
++   )
++ )
+> exe2 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, 
++                 unitless = TRUE, parallel = TRUE)
+> 
+\end{Sinput}
+\end{Schunk}
+
+\clearpage
+
+\begin{Schunk}
+\begin{Sinput}
+> # Extended example 3: 
+> # Wind speed and leaf-to-air temperature differential
+> 
+> library(tealeaves)
+> lp  <- make_leafpar(
++   replace = list(
++     leafsize = set_units(c(0.005, 0.1, 0.5), "m")
++   )
++ )
+> ep <- make_enviropar(
++   replace = list(
++     wind = set_units(exp(seq(log(0.01), log(10), 
++                              length.out = 1e2)), "m/s")
++   )
++ )
+> exe3 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, 
++                 unitless = TRUE, parallel = TRUE)
+> 
+\end{Sinput}
+\end{Schunk}
+
+\clearpage
+
+\begin{Schunk}
+\begin{Sinput}
+> # Extended example 4: 
+> # Stomatal ratio and evaporation
+> 
+> library(tealeaves)
+> lp  <- make_leafpar(
++   replace = list(
++     g_sw = set_units(c(0.4, 4), "umol/s/m^2/Pa"),
++     logit_sr = set_units(seq(-10, 10, length.out = 1e2))
++   )
++ )
+> ep <- make_enviropar(
++   replace = list(
++     RH = set_units(0.2),
++     T_air = set_units(293.15, "K"),
++     wind = set_units(c(0, 2), "m/s")
++   )
++ )
+> exe4 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, 
++                 unitless = TRUE, parallel = TRUE)
+> 
+\end{Sinput}
+\end{Schunk}
+
 \end{document}

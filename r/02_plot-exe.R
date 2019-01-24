@@ -18,20 +18,30 @@ exe1 %<>% mutate(leafsize1 = case_when(
 ))
 
 gp_exe1 <- ggplot(exe1, aes(T_air, T_leaf - T_air, linetype = leafsize1)) +
+  #scale_x_continuous(limits = c(278.15, 308.15)) +
+  scale_y_continuous(limits = c(-1, 13)) +
   geom_line(size = 1.1) +
   xlab("Air Temperature [K]") +
   ylab("Leaf - Air Temperature [K]") +
   theme_bw() +
   scale_linetype_discrete(name  ="Leaf size",
                           breaks = c("large (0.5 m)", "medium (0.1 m)", "small (0.005 m)")) + 
-  theme(axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 14),
-        legend.position = "top") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 11),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 11),
+        legend.key.width = unit(1, "cm"),
+        legend.text.align = 1,
+        legend.title.align = 1,
+        legend.background = element_blank(),
+        legend.justification = c(1, 1),
+        legend.position = c(1, 1),
+        legend.direction = "vertical",
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank()) +
   NULL
 
-ggsave("figures/gp_exe1.pdf", width = 6, height = 4)
+ggsave("figures/gp_exe1.pdf", width = 3.25, height = 3.25)
 
 # Extended example 2: Solar radiation and leaf-to-air temperature differential  ----
 
@@ -53,14 +63,22 @@ gp_exe2 <- ggplot(exe2, aes(S_sw, T_leaf - T_air, linetype = g_sw1)) +
   theme_bw() +
   scale_linetype_discrete(name  ="Stomatal conductance",
                           breaks = c("low", "medium", "high")) + 
-  theme(axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 14),
-        legend.position = "top") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 11),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 11),
+        legend.key.width = unit(1, "cm"),
+        legend.text.align = 0,
+        legend.title.align = 0,
+        legend.background = element_blank(),
+        legend.justification = c(0, 1),
+        legend.position = c(0, 1),
+        legend.direction = "vertical",
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank()) +
   NULL
 
-ggsave("figures/gp_exe2.pdf", width = 6, height = 4)
+ggsave("figures/gp_exe2.pdf", width = 3.25, height = 3.25)
 
 # Extended example 3: Wind speed and leaf-to-air temperature differential  ----
 
@@ -88,16 +106,14 @@ gp_exe3 <- ggplot(exe3, aes(log10(Ar), T_leaf - T_air, linetype = leafsize1)) +
   ylab("Leaf - Air Temperature [K]") +
   geom_vline(xintercept = log10(c(1, 10))) +
   theme_bw() +
-  scale_linetype_discrete(name  ="Leaf size",
-                          breaks = c("large (0.5 m)", "medium (0.1 m)", "small (0.005 m)")) + 
-  theme(axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 14),
-        legend.position = "top") +
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 11),
+        legend.position = "none",
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank()) +
   NULL
 
-ggsave("figures/gp_exe3.pdf", width = 6, height = 4)
+ggsave("figures/gp_exe3.pdf", width = 3.25, height = 3.25)
 
 # Extended example 4: Stomatal ratio and evaporation ----
 exe4$g_sw %<>% drop_units() 
@@ -124,12 +140,45 @@ gp_exe4 <- ggplot(filter(exe4, !is.na(E)),
   ylab(expression(paste("Evaporation [mmol ", m^-2, " ", s^-1, "]"))) +
   theme_bw() +
   scale_linetype_discrete(name = "Stomatal\nconductance") + 
-  theme(axis.text = element_text(size = 12),
-        axis.title = element_text(size = 14),
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 14),
+  theme(axis.text = element_text(size = 10),
+        axis.title = element_text(size = 11),
+        legend.text = element_text(size = 10),
+        legend.title = element_text(size = 11),
         legend.position = "right",
         legend.key.height = unit(1, "cm")) +
   NULL
 
-ggsave("figures/gp_exe4.pdf", width = 6, height = 4)
+ggsave("figures/gp_exe4.pdf", width = 3.25, height = 3.25)
+
+# Combine figure panels into single figure for publication ----
+gp_exe1 %<>% arrangeGrob(
+  top = textGrob("A", x = unit(0, "npc"), y = unit(1, "npc"), 
+                 just = c("left","top"), 
+                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
+  )
+)
+
+gp_exe2 %<>% arrangeGrob(
+  top = textGrob("B", x = unit(0, "npc"), y = unit(1, "npc"), 
+                 just = c("left","top"), 
+                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
+  )
+)
+
+gp_exe3 %<>% arrangeGrob(
+  top = textGrob("C", x = unit(0, "npc"), y = unit(1, "npc"), 
+                 just = c("left","top"), 
+                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
+  )
+)
+
+gp_exe4 %<>% arrangeGrob(
+  top = textGrob("D", x = unit(0, "npc"), y = unit(1, "npc"), 
+                 just = c("left","top"), 
+                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
+  )
+)
+
+gp <- grid.arrange(gp_exe1, gp_exe2, gp_exe3, gp_exe4, ncol = 2)
+
+ggsave("figures/fig1.pdf", gp, width = 6.5, height = 6.5)

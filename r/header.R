@@ -7,6 +7,8 @@ file.copy("~/Google Drive/professional/resources/bibliography/refs.bib",
           overwrite = TRUE)
 
 # Libraries
+library(grid)
+library(gridExtra)
 library(magrittr)
 library(tealeaves)
 library(tidyverse)

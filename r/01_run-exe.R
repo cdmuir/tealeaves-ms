@@ -46,7 +46,6 @@ lp  <- make_leafpar(
 
 ep <- make_enviropar(
   replace = list(
-  #  wind = set_units(seq(0.01, 10, length.out = 50), "m/s")
     wind = set_units(exp(seq(log(0.01), log(10), length.out = 1e2)), "m/s")
   )
 )
