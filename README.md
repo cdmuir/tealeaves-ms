@@ -1,6 +1,6 @@
 # tealeaves-ms
 
-[{tealeaves}: an R package for modeling leaf temperature using energy budgets](biorxiv-link).
+[{tealeaves}: an R package for modeling leaf temperature using energy budgets](https://doi.org/10.1101/529487).
 
 This is a manuscript associated with the R package [{tealeaves}](https://github.com/cdmuir/tealeaves). This project was developed by [Chris Muir](https://www.chrisdmuir.com).
 
