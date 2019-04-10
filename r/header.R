@@ -7,6 +7,7 @@ file.copy("/Volumes/GoogleDrive/My Drive/resources/bibliography/refs.bib",
            overwrite = TRUE)
 
 # Libraries
+library(cowplot)
 library(grid)
 library(gridExtra)
 library(magrittr)

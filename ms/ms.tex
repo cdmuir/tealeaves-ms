@@ -18,6 +18,7 @@
   \makesavenoteenv{tabular}
 \usepackage{lineno}
   \linenumbers
+\usepackage{lscape}
 \usepackage{natbib}
 \usepackage[parfill]{parskip}
 \usepackage{setspace}
@@ -359,7 +360,7 @@ In conclusion, \tealeaves~provides an open source software platform for leaf ene
 \centerline{\includegraphics[width=\textwidth,height=\textwidth]{../figures/fig1.pdf}}
 \end{figure}
 
-\begin{figure} [t!]
+\begin{figure}[t!]
 \caption{Extended examples of \tealeaves. Code to generate these examples is provided in the Supporting Information. A. The temperature of smaller leaves is more closely coupled to air temperature. Each line represents a different leaf size (small, dashed line; medium, dotted line; large, solid line) and the leaf-to-air temperature differential ($y$-axis) over an air temperature gradient ($x$-axis). B. Greater stomatal conductance cools leaves. Each line represents a different stomatal conductance (low, dashed line, 1 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; medium, dotted line, 3 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; high, solid line, 5 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$) and the leaf-to-air temperature differential ($y$-axis) over a gradient of incident solar radiation ($x$-axis). C. Forced convection dominates in small leaves; free convection dominates in very large leaves. Leaf size is indicated by line type as in Panel A. Horizontal lines indicate approximate shifts from forced convection ($\mathit{Ar} < 0.1$), mixed convection ($0.1 < \mathit{Ar} < 10$), and free convection ($\mathit{Ar} > 10$). Small leaves always experience forced convection, leading to lower leaf temperature compared to large leaves experiencing free convection. D. Amphistomatous leaves (Stomatal Ratio $\sim$ 0.5) evaporate more than hypo- or hyperstomatous leaves (Stomatal Ratio $\sim$ 0 or 1, respectively), especially under free convection (low wind speed, $u$).}
 \label{fig:fig1}
 \end{figure}
@@ -486,6 +487,8 @@ In conclusion, \tealeaves~provides an open source software platform for leaf ene
 % SI Table
 %--------------------------------------------------
 
+\subsection*{Supporting Tables}
+
 \begin{table}[ht]
 \caption{Reasonable values for \tealeaves~parameter inputs with references to the primary literature. See Table \ref{table:table_input} for a key to symbols.}
 \begin{center}
@@ -522,7 +525,36 @@ In conclusion, \tealeaves~provides an open source software platform for leaf ene
 \label{table:table_values}
 \end{table}
 
-R code for running extended examples (Fig. \ref{fig:fig1}). This code and that to generate figures are deposited on GitHub (https://github.com/cdmuir/tealeaves-ms).
+\clearpage
+
+%--------------------------------------------------
+% SI Figures
+%--------------------------------------------------
+
+\subsection*{Supporting Figures}
+
+\begin{landscape}
+
+\begin{figure}[ht]
+\centerline{\includegraphics[width=\textheight]{../figures/pars.pdf}}
+\end{figure}
+
+\end{landscape}
+
+\begin{figure}[t!]
+\caption{The effect of key leaf (\textbf{A -- C}) and environmental (\textbf{D -- F}) parameters on leaf temperature, holding other parameters constant. \textbf{A}) Greater stomatal conductance ($g_\mathrm{sw}$, \textit{x}-axis) reduces leaf temperature through latent heat loss. \textbf{B}) Larger leaves ($d$, \textit{x}-axis) have thicker boundary layers, causing them to heat up more in the sun. \textbf{C}) Amphistomatous leaves ($\mathit{SR} = 0.5$, \textit{x}-axis) lose more water through transpiration than leaves with all stomata on one surface, leading to a lower leaf temperature. \textbf{D}) Greater humidity ($\mathit{RH}$, \textit{x}-axis) increases leaf temperature by limiting latent heat loss. \textbf{E}) With low solar radiation ($S_\mathrm{sw}$, \textit{x}-axis), leaf temperature is below air temperature; with high solar radiation, leaf temperature os greater than air temperatire. \textbf{F}) At greater windspeeds ($u$, \textit{x}-axis) leaf temperature is more closely coupled with air temperature. The discontinuity represents the shift from laminar to turbulent flow. For reference, the dashed line is the air temperature in all simulations. All calculations used the following leaf parameter values unless they varied: $d = 0.1$ m; $\alpha_\mathrm{s} = 0.5$; $\alpha_\mathrm{l} = 0.97$; $g_\mathrm{sw} = 5~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $g_\mathrm{uw} = 0.1~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $\mathit{SR} = 0.5$. All calculations used the following environmental parameter values unless they varied: $P = 101.3246$ kPa; $r = 0.2$; $\mathit{RH} = 0.5$; $S_\mathrm{sw} = 1000$ W m$^{-2}$; $T_\mathrm{air} = 298.15$ K; $u = 2$ m s$^{-1}$. See Table \ref{table:table_input} for symbol definitions.}
+\label{fig:pars}
+\end{figure}
+
+\clearpage
+
+%--------------------------------------------------
+% SI Text
+%--------------------------------------------------
+
+\subsection*{Extended examples}
+
+R code for running extended examples (Fig. \ref{fig:fig1}). The below code and the code to generate figures are deposited on GitHub (https://github.com/cdmuir/tealeaves-ms).
  
 \begin{Schunk}
 \begin{Sinput}
