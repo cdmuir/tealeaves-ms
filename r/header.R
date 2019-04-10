@@ -2,9 +2,9 @@ rm(list = ls())
 graphics.off()
 
 # remove before final publication
-# file.copy("~/Google Drive/professional/resources/bibliography/refs.bib",
-#           "~/Google Drive/professional/research/active/tealeaves/tealeaves-ms/ms/refs.bib", 
-#           overwrite = TRUE)
+file.copy("/Volumes/GoogleDrive/My Drive/resources/bibliography/refs.bib",
+          "/Volumes/GoogleDrive/My Drive/research/02_review/tealeaves-ms/ms/refs.bib", 
+           overwrite = TRUE)
 
 # Libraries
 library(grid)

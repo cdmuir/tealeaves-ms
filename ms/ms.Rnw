@@ -17,10 +17,10 @@
 \usepackage{footnote}
   \makesavenoteenv{tabular}
 \usepackage{lineno}
+  \linenumbers
 \usepackage{natbib}
 \usepackage[parfill]{parskip}
 \usepackage{setspace}
-  \newcommand{\stretchy}{1.5}
 \usepackage{Sweave}
   \DefineVerbatimEnvironment{Sinput}{Verbatim} {xleftmargin=2em,frame=single}
   \DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=2em,frame=single}
@@ -46,16 +46,16 @@
 \affil[1]{Department of Botany, University of Hawai'i, Honolulu, Hawai'i 96822, USA}
 \date{} % delete this line to display the current date
 
-% \begin{center}
-% Technical Report 
-% \end{center}
+\begin{center}
+Technical Report 
+\end{center}
 
 {\let\newpage\relax\maketitle}
 
 Phone: +1 808-688-3478 \\
-Email: cdmuir@hawaii.edu %\\
-%\\
-%Funding: University of Hawai'i
+Email: cdmuir@hawaii.edu \\
+\\
+Funding: University of Hawai'i
 
 \section*{Abstract}
 
@@ -81,13 +81,15 @@ Tom Buckley kindly explained how to convert conductance from molar to `engineeri
   
 @
 
-% paragraph 1: overarching problem - from temperature writ large to leaf temperature specifically
+\onehalfspacing
 
-% \section*{Summary}
-% 
-% \tealeaves~is a new R package to implement complex, customizable leaf energy budget models as part of an open source, transparent workflow.
+\section*{Summary}
+
+\tealeaves~is a new R package to implement complex, customizable leaf energy budget models as part of an open source, transparent workflow.
 
 \section*{Introduction}
+
+% paragraph 1: overarching problem - from temperature writ large to leaf temperature specifically
 
 Organisms closely regulate temperature because temperature influences many biological processes. Plants grow, survive, and reproduce under a wide variety of temperatures because natural selection endows them with adaptations to cope with different thermal regimes. Cushion plants in the alpine grown near the ground to warm up, desert plants decrease absorptance to cool down \citep{Ehleringer_etal_1976}, and plants keep stomata open to protect against extreme heat waves \citep{Drake_etal_2018}. These diverse mechanisms of thermal adaptation and acclimation are fascinating. Understanding them may provide insight into how plants respond to increasing temperatures and how these responses influence ecosystem function with anthropogenic climate change \citep{Rogers_etal_2017}. Because leaves are the primary photosynthetic organ in most plants, regulating leaf temperature is critical \citep{Berry_Bjorkman_1980}. Photosynthesis peaks at intermediate temperatures\citep{Sage_Kubien_2007}. When leaves are too warm, evaporation increases exponentially, photo- and nonphotorespiratory losses subtract from carbon gain \citep{Jones_2014}, and critical loss of function occurs about $\sim 50^{\circ}$ C \citep{Osullivan_etal_2017}. When leaves are too cold, maximum photosynthetic rates decline and can lead to damage from excess solar radiation \citep{Huner_etal_1993} as well as nighttime dew and frost formation \citep{Jordan_Smith_1994}. Natural selection should favor leaf morphologies and physiological responses that optimize leaf temperature in a given environment \citep{Parkhurst_Loucks_1972, Okajima_etal_2012, Michaletz_etal_2016}.
 
@@ -182,7 +184,7 @@ where
   \mathit{Nu}_\mathrm{free} =    & ~ c \mathit{Gr} ^ d
 \end{align}
 
-$a, b, c, d$ are constants that depend on whether flow is laminar or turbulent and the direction of flow in the case of free convection (see below). In general, when the Archimedes number $\mathit{Ar} = \mathit{Gr} / \mathit{Re} ^ 2 \ll 0.1$, free convection dominates; when when $\mathit{Ar} = \mathit{Gr} / \mathit{Re} ^ 2 \gg 10$, forced convection dominates \citep{Nobel_2009}. The Nusselt number coefficients can be found in \citeauthor{Monteith_Unsworth_2013} (\citeyear{Monteith_Unsworth_2013}). For forced convection, flow is laminar if $\mathit{Re} < 4000$, $a = 0.6, b = 0.5$; flow is turbulent if $\mathit{Re} > 4000$, $a = 0.032, b = 0.8$. These cutoffs for leaves are lower than for artificial surfaces because trichomes and other anatomical features of leaf surfaces induce turbulence more readily \citep{Grace_Wilson_1976}. For free convection, flow is laminar. For the upper surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the lower surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.5, d = 0.25$. Conversely, for the lower surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the upper surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.23, d = 0.25$.
+$a, b, c, d$ are constants that depend on whether flow is laminar or turbulent and the direction of flow in the case of free convection (see below). In general, when the Archimedes number $\mathit{Ar} = \mathit{Gr} / \mathit{Re} ^ 2 \ll 0.1$, free convection dominates; when $\mathit{Ar} = \mathit{Gr} / \mathit{Re} ^ 2 \gg 10$, forced convection dominates \citep{Nobel_2009}. The Nusselt number coefficients can be found in \citeauthor{Monteith_Unsworth_2013} (\citeyear{Monteith_Unsworth_2013}). For forced convection, flow is laminar if $\mathit{Re} < 4000$, $a = 0.6, b = 0.5$; flow is turbulent if $\mathit{Re} > 4000$, $a = 0.032, b = 0.8$. These cutoffs for leaves are lower than for artificial surfaces because trichomes and other anatomical features of leaf surfaces induce turbulence more readily \citep{Grace_Wilson_1976}. For free convection, flow is laminar. For the upper surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the lower surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.5, d = 0.25$. Conversely, for the lower surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the upper surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.23, d = 0.25$.
 
 Grashof and Reynolds numbers are calculated as follows:
 
@@ -272,7 +274,7 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
 
 R is a fully open source programming language for statistical computing that allows users to develop their own packages with new functions. \tealeaves~takes three sets of parameter inputs: leaf parameters, environmental parameters, and physical constants (see Table \ref{table:table_input}). The package provides reasonable defaults, but users can input new values to address their question, as I demonstrate in the next section. With one or more parameter sets, \tealeaves~uses the \code{uniroot} function in R base package \pkg{stats} to find the \tleaf~that balances the leaf energy budget (Eqn \ref{eq:energy_budget}). It outputs the equilibrium \tleaf~and energy fluxes in a table for analysis and visualization.
 
-Unlike previous leaf energy models, \tealeaves~ensures that calculations are technically correct by assigning stadard SI units with the R package \pkg{units} \cite{Pebesma_etal_2016}. Every parameter and calculated value must have correctly assigned units. If units are not properly defined, \tealeaves~will produce an error because it is unable to convert values. For speed, there is also a ``unitless'' version that forgoes careful unit checks during calculations. To ensure accuracy, these unitless functions are tested against their counterparts with units using the \pkg{testthat} package \citep{Wickham_2011}. Other R packages that contributed to \tealeaves~are \pkg{crayon} \citep{Csardi_2017}, \pkg{dplyr} \citep{Wickham_etal_2018}, \pkg{glue} \citep{Hester_2018}, \pkg{furrr} \citep{Vaughan_Dancho_2018}, \pkg{future} \citep{Bengtsson_2018}, \pkg{ggplot} \citep{Wickham_2016}, \pkg{magrittr} \citep{Bache_Wickham_2014}, \pkg{purrr} \citep{Henry_Wickham_2018b}, \pkg{rlang} \citep{Henry_Wickham_2018a}, \pkg{stringr} \citep{Wickham_2018}, \pkg{tidyr} \citep{Wickham_Henry_2018}.
+Unlike previous leaf energy models, \tealeaves~ensures that calculations are technically correct by assigning stadard SI units with the R package \pkg{units} \cite{Pebesma_etal_2016}. Every parameter and calculated value must have correctly assigned units. If units are not properly defined, \tealeaves~will produce an error because it is unable to convert values. For speed, there is also a ``unitless'' version that forgoes careful unit checks during calculations. To ensure accuracy, these unitless functions are tested against their counterparts with units using the \pkg{testthat} package \citep{Wickham_2011b}. Other R packages that contributed to \tealeaves~are \pkg{crayon} \citep{Csardi_2017}, \pkg{dplyr} \citep{Wickham_etal_2018}, \pkg{glue} \citep{Hester_2018}, \pkg{furrr} \citep{Vaughan_Dancho_2018}, \pkg{future} \citep{Bengtsson_2018}, \pkg{ggplot} \citep{Wickham_2016}, \pkg{magrittr} \citep{Bache_Wickham_2014}, \pkg{purrr} \citep{Henry_Wickham_2018b}, \pkg{rlang} \citep{Henry_Wickham_2018a}, \pkg{stringr} \citep{Wickham_2018}, \pkg{tidyr} \citep{Wickham_Henry_2018}.
 
 \subsection*{Worked examples}
 
@@ -369,7 +371,7 @@ In conclusion, \tealeaves~provides an open source software platform for leaf ene
 \end{figure}
 
 \begin{figure} [t!]
-\caption{Extended examples of \tealeaves. Code to generate these examples is provided in the Supporting Information. A. The temperature of smaller leaves is more closely coupled to air temperature. Each line represents a different leaf size (small, dashed line; medium, dotted line; large, solid line) and the leaf-to-air temperature differential ($y$-axis) over a air temperature gradient ($x$-axis). B. Greater stomatal conductance cools leaves. Each line represents a different stomatal conductance (low, dashed line, 1 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; medium, dotted line, 3 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; high, solid line, 5 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$) and the leaf-to-air temperature differential ($y$-axis) over a gradient of incident solar radiation ($x$-axis). C. Forced convection dominates in small leaves; free convection dominates in very large leaves. Leaf size is indicated by line type as in Panel A. Horizontal lines indicate approximate shifts from forced convection ($\mathit{Ar} < 0.1$), mixed convection ($0.1 < \mathit{Ar} < 10$), and free convection ($\mathit{Ar} > 10$). Small leaves always experience forced convection, leading to lower leaf temperature compared to large leaves experiencing free convection. D. Amphistomatous leaves (Stomatal Ratio $\sim$ 0.5) evaporate more than hypo- or hyperstomatous leaves (Stomatal Ratio $\sim$ 0 or 1, respectively), especially under free convection (low wind speed, $u$).}
+\caption{Extended examples of \tealeaves. Code to generate these examples is provided in the Supporting Information. A. The temperature of smaller leaves is more closely coupled to air temperature. Each line represents a different leaf size (small, dashed line; medium, dotted line; large, solid line) and the leaf-to-air temperature differential ($y$-axis) over an air temperature gradient ($x$-axis). B. Greater stomatal conductance cools leaves. Each line represents a different stomatal conductance (low, dashed line, 1 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; medium, dotted line, 3 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; high, solid line, 5 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$) and the leaf-to-air temperature differential ($y$-axis) over a gradient of incident solar radiation ($x$-axis). C. Forced convection dominates in small leaves; free convection dominates in very large leaves. Leaf size is indicated by line type as in Panel A. Horizontal lines indicate approximate shifts from forced convection ($\mathit{Ar} < 0.1$), mixed convection ($0.1 < \mathit{Ar} < 10$), and free convection ($\mathit{Ar} > 10$). Small leaves always experience forced convection, leading to lower leaf temperature compared to large leaves experiencing free convection. D. Amphistomatous leaves (Stomatal Ratio $\sim$ 0.5) evaporate more than hypo- or hyperstomatous leaves (Stomatal Ratio $\sim$ 0 or 1, respectively), especially under free convection (low wind speed, $u$).}
 \label{fig:fig1}
 \end{figure}
 
@@ -482,6 +484,54 @@ In conclusion, \tealeaves~provides an open source software platform for leaf ene
 \clearpage
 
 \section*{Supporting Information}
+
+% Modify and restart table/figure numbering for SI
+\renewcommand\thefigure{S\arabic{figure}}
+\renewcommand\thetable{S\arabic{table}}
+\renewcommand\theequation{S\arabic{equation}}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+\setcounter{figure}{0}
+
+%--------------------------------------------------
+% SI Table
+%--------------------------------------------------
+
+\begin{table}[ht]
+\caption{Reasonable values for \tealeaves~parameter inputs with references to the primary literature. See Table \ref{table:table_input} for a key to symbols.}
+\begin{center}
+\resizebox{6in}{!}{
+\begin{tabular}{lll}
+
+  \toprule
+  Symbol & Range & Reference(s) \\
+  \midrule
+  
+  \multicolumn{3}{l}{\textbf{Leaf parameters:}} \\
+  \\
+  $d$                 & 0.004 -- 0.4 m & \cite{Wright_etal_2017} \\
+  $\alpha_\mathrm{s}$ & 0.95 -- 0.97             & \cite{Gutschick_2016} \\
+  $\alpha_\mathrm{l}$ & 0.4 -- 0.6               & \cite{Jones_2014} \\
+  $g_\mathrm{sw}$     & 0.01 -- 10 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$ & \cite{Lin_etal_2015, Duursma_etal_2019} \\
+  $g_\mathrm{uw}$     & 0.01 -- 1 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$ & \cite{Duursma_etal_2019} \\
+  $\mathit{SR}$       & 0 -- 1 (untransformed) & \cite{Muir_2015} \\
+  \\
+  \multicolumn{3}{l}{\textbf{Environmental parameters:}} \\
+  \\
+  $P$              & 50 (5000 mas) -- 100 (0 mas) kPa & \cite{Korner_2007, Stull_2011} \\
+  $r$              & 0.1 (lava) -- 0.6 (ice) & \cite{Stull_2011} \\
+  $\mathit{RH}$    & 0 -- 1               & \cite{Jones_2014} \\
+  $S_\mathrm{sw}$  & 0 -- 1000 W m$^{-2}$ & \cite{Jones_2014} \\
+  $T_\mathrm{air}$ & 270 -- 320 K         & \cite{Jones_2014} \\
+  $u$              & 0 -- 10 m s$^{-1}$   & \cite{Vogel_2009} \\
+
+\bottomrule
+
+\end{tabular}}
+\end{center}
+
+\label{table:table_values}
+\end{table}
 
 R code for running extended examples (Fig. \ref{fig:fig1}). This code and that to generate figures are deposited on GitHub (https://github.com/cdmuir/tealeaves-ms).
  
