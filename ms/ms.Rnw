@@ -17,12 +17,12 @@
 \usepackage{footnote}
   \makesavenoteenv{tabular}
 \usepackage{lineno}
-  \linenumbers
+  % \linenumbers
 \usepackage{lscape}
 \usepackage{natbib}
 \usepackage[parfill]{parskip}
 \usepackage{setspace}
-  \setstretch{1.5}
+  % \setstretch{1.5}
 \usepackage{Sweave}
   \SweaveOpts{concordance = TRUE}
   \DefineVerbatimEnvironment{Sinput}{Verbatim} {xleftmargin=2em,frame=single}
@@ -46,8 +46,8 @@
 
 \title{\tealeaves: an R package for modelling leaf temperature using energy budgets}
 \author{}
-% \author[1]{Christopher. D. Muir}
-% \affil[1]{Department of Botany, University of Hawai'i, Honolulu, Hawai'i 96822, USA}
+\author[1]{Christopher. D. Muir}
+\affil[1]{Department of Botany, University of Hawai'i, Honolulu, Hawai'i 96822, USA}
 \date{} % delete this line to display the current date
 
 \begin{center}
@@ -56,10 +56,10 @@ Tools
 
 {\let\newpage\relax\maketitle}
 
-% Phone: +1 808-688-3478 \\
-% Email: cdmuir@hawaii.edu \\
-% \\
-% Funding: University of Hawai'i
+Phone: +1 808-688-3478 \\
+Email: cdmuir@hawaii.edu \\
+\\
+Funding: University of Hawai'i
 
 \section*{Abstract}
 
