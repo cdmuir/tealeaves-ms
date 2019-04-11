@@ -1,4 +1,4 @@
-devtools::install_github("cdmuir/tealeaves", ref = "dev")
+devtools::install_github("cdmuir/tealeaves")
 install.packages("cowplot")
 install.packages("magrittr")
 install.packages("tidyverse")

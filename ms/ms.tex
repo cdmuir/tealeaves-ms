@@ -269,7 +269,7 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
 
 R is a fully open source programming language for statistical computing that allows users to develop their own packages with new functions. \tealeaves~takes three sets of parameter inputs: leaf parameters, environmental parameters, and physical constants (see Table \ref{table:table_input}). The package provides reasonable defaults, but users can input new values to address their question, as I demonstrate in the next section. With one or more parameter sets, \tealeaves~uses the \code{uniroot} function in R base package \pkg{stats} to find the \tleaf~that balances the leaf energy budget (Eqn \ref{eq:energy_budget}). It outputs the equilibrium \tleaf~and energy fluxes in a table for analysis and visualization.
 
-Unlike previous leaf energy models, \tealeaves~ensures that calculations are technically correct by assigning stadard SI units with the R package \pkg{units} \cite{Pebesma_etal_2016}. Every parameter and calculated value must have correctly assigned units. If units are not properly defined, \tealeaves~will produce an error because it is unable to convert values. For speed, there is also a ``unitless'' version that forgoes careful unit checks during calculations. To ensure accuracy, these unitless functions are tested against their counterparts with units using the \pkg{testthat} package \citep{Wickham_2011b}. Other R packages that contributed to \tealeaves~are \pkg{crayon} \citep{Csardi_2017}, \pkg{dplyr} \citep{Wickham_etal_2018}, \pkg{glue} \citep{Hester_2018}, \pkg{furrr} \citep{Vaughan_Dancho_2018}, \pkg{future} \citep{Bengtsson_2018}, \pkg{ggplot} \citep{Wickham_2016}, \pkg{magrittr} \citep{Bache_Wickham_2014}, \pkg{purrr} \citep{Henry_Wickham_2018b}, \pkg{rlang} \citep{Henry_Wickham_2018a}, \pkg{stringr} \citep{Wickham_2018}, \pkg{tidyr} \citep{Wickham_Henry_2018}.
+Unlike previous leaf energy models, \tealeaves~ensures that calculations are technically correct by assigning stadard SI units with the R package \pkg{units} \cite{Pebesma_etal_2016}. Every parameter and calculated value must have correctly assigned units. If units are not properly defined, \tealeaves~will produce an error because it is unable to convert values. To ensure accuracy, these unitless functions are tested against their counterparts with units using the \pkg{testthat} package \citep{Wickham_2011b}. Other R packages that contributed to \tealeaves~are \pkg{crayon} \citep{Csardi_2017}, \pkg{dplyr} \citep{Wickham_etal_2018}, \pkg{glue} \citep{Hester_2018}, \pkg{furrr} \citep{Vaughan_Dancho_2018}, \pkg{future} \citep{Bengtsson_2018}, \pkg{ggplot} \citep{Wickham_2016}, \pkg{magrittr} \citep{Bache_Wickham_2014}, \pkg{purrr} \citep{Henry_Wickham_2018b}, \pkg{rlang} \citep{Henry_Wickham_2018a}, \pkg{stringr} \citep{Wickham_2018}, \pkg{tidyr} \citep{Wickham_Henry_2018}.
 
 \subsection*{Worked examples}
 
@@ -287,8 +287,8 @@ The box below provides R code implementing the minimum worked example with defau
 >   enviro_par <- make_enviropar()
 >   constants  <- make_constants()
 >   # Solve for T_leaf
->   T_leaf <- tleaf(leaf_par, enviro_par, constants, 
-+                   quiet = TRUE, unitless = FALSE)
+>   T_leaf <- tleaf(leaf_par, enviro_par, constants,
++                   quiet = TRUE)
 > 
 \end{Sinput}
 \end{Schunk}
@@ -314,7 +314,7 @@ The box below provides R code to calculate leaf temperature along an air tempera
 >   constants  <- make_constants()
 >   # Solve for T_leaf over a range of T_air
 >   T_leaves <- tleaves(leaf_par, enviro_par, constants, 
-+                       quiet = TRUE, unitless = FALSE)
++                       quiet = TRUE)
 > 
 \end{Sinput}
 \end{Schunk}
