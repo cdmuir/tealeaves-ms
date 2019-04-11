@@ -45,7 +45,7 @@
 \SweaveOpts{concordance=TRUE}
 
 \title{\tealeaves: an R package for modelling leaf temperature using energy budgets}
-\author{}
+%\author{}
 \author[1]{Christopher. D. Muir}
 \affil[1]{Department of Botany, University of Hawai'i, Honolulu, Hawai'i 96822, USA}
 \date{} % delete this line to display the current date
