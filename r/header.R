@@ -8,8 +8,6 @@ file.copy("/Volumes/GoogleDrive/My Drive/resources/bibliography/refs.bib",
 
 # Libraries
 library(cowplot)
-library(grid)
-library(gridExtra)
 library(magrittr)
 library(tealeaves)
 library(tidyverse)

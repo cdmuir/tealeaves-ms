@@ -5,7 +5,7 @@ cs <- make_constants()
 # Extended example 1: leaf size and leaf-to-air temperature differential ----
 lp  <- make_leafpar(
   replace = list(
-    leafsize = set_units(c(0.005, 0.1, 0.5), "m")
+    leafsize = set_units(c(0.005, 0.1, 0.4), "m")
   )
 )
 
@@ -16,7 +16,8 @@ ep <- make_enviropar(
   )
 )
 
-exe1 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, unitless = TRUE, parallel = TRUE)
+exe1 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, set_units = TRUE,
+                parallel = TRUE)
 
 write_rds(exe1, "data/exe1.rds")
 
@@ -33,7 +34,8 @@ ep <- make_enviropar(
   )
 )
 
-exe2 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, unitless = TRUE, parallel = TRUE)
+exe2 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, set_units = TRUE,
+                parallel = TRUE)
 
 write_rds(exe2, "data/exe2.rds")
 
@@ -50,7 +52,8 @@ ep <- make_enviropar(
   )
 )
 
-exe3 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, unitless = TRUE, parallel = TRUE)
+exe3 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, set_units = TRUE,
+                parallel = TRUE)
 
 write_rds(exe3, "data/exe3.rds")
 
@@ -70,9 +73,7 @@ ep <- make_enviropar(
   )
 )
 
-exe4 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, unitless = TRUE, parallel = TRUE)
+exe4 <- tleaves(lp, ep, cs, progress = TRUE, quiet = TRUE, set_units = TRUE,
+                parallel = TRUE)
 
 write_rds(exe4, "data/exe4.rds")
-
-# Export to ms -----
-# export2ms("nsamples")

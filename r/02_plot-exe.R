@@ -14,18 +14,18 @@ exe1$T_leaf %<>% drop_units()
 exe1 %<>% mutate(leafsize1 = case_when(
   leafsize == 0.005 ~ "small (0.005 m)",
   leafsize == 0.1 ~ "medium (0.1 m)",
-  leafsize == 0.5 ~ "large (0.5 m)"
+  leafsize == 0.4 ~ "large (0.4 m)"
 ))
 
 gp_exe1 <- ggplot(exe1, aes(T_air, T_leaf - T_air, linetype = leafsize1)) +
   #scale_x_continuous(limits = c(278.15, 308.15)) +
-  scale_y_continuous(limits = c(-1, 13)) +
+  scale_y_continuous(limits = c(-3.5, 7.5)) +
   geom_line(size = 1.1) +
   xlab("Air Temperature [K]") +
   ylab("Leaf - Air Temperature [K]") +
   theme_bw() +
   scale_linetype_discrete(name  ="Leaf size",
-                          breaks = c("large (0.5 m)", "medium (0.1 m)", "small (0.005 m)")) + 
+                          breaks = c("large (0.4 m)", "medium (0.1 m)", "small (0.005 m)")) + 
   theme(axis.text = element_text(size = 10),
         axis.title = element_text(size = 11),
         legend.text = element_text(size = 10),
@@ -58,6 +58,7 @@ exe2 %<>% mutate(g_sw1 = case_when(
 
 gp_exe2 <- ggplot(exe2, aes(S_sw, T_leaf - T_air, linetype = g_sw1)) +
   geom_line(size = 1.1) +
+  scale_y_continuous(limits = c(-3.5, 7.5)) +
   xlab(expression(paste("Solar radiation [W ", m^-2, "]"))) +
   ylab("Leaf - Air Temperature [K]") +
   theme_bw() +
@@ -83,7 +84,6 @@ ggsave("figures/gp_exe2.pdf", width = 3.25, height = 3.25)
 # Extended example 3: Wind speed and leaf-to-air temperature differential  ----
 
 exe3$leafsize %<>% drop_units() 
-exe3$Re %<>% drop_units() 
 exe3$T_air %<>% drop_units() 
 exe3$T_leaf %<>% drop_units() 
 exe3$wind %<>% drop_units() 
@@ -153,34 +153,6 @@ gp_exe4 <- ggplot(filter(exe4, !is.na(E)),
 ggsave("figures/gp_exe4.pdf", width = 3.25, height = 3.25)
 
 # Combine figure panels into single figure for publication ----
-gp_exe1 %<>% arrangeGrob(
-  top = textGrob("A", x = unit(0, "npc"), y = unit(1, "npc"), 
-                 just = c("left","top"), 
-                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
-  )
-)
-
-gp_exe2 %<>% arrangeGrob(
-  top = textGrob("B", x = unit(0, "npc"), y = unit(1, "npc"), 
-                 just = c("left","top"), 
-                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
-  )
-)
-
-gp_exe3 %<>% arrangeGrob(
-  top = textGrob("C", x = unit(0, "npc"), y = unit(1, "npc"), 
-                 just = c("left","top"), 
-                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
-  )
-)
-
-gp_exe4 %<>% arrangeGrob(
-  top = textGrob("D", x = unit(0, "npc"), y = unit(1, "npc"), 
-                 just = c("left","top"), 
-                 gp = gpar(col="black", fontsize = 12, fontfamily="Helvetica")
-  )
-)
-
-gp <- grid.arrange(gp_exe1, gp_exe2, gp_exe3, gp_exe4, ncol = 2)
-
-ggsave("figures/fig1.pdf", gp, width = 6.5, height = 6.5)
+plot_grid(gp_exe1, gp_exe2, gp_exe3, gp_exe4, labels = LETTERS[1:4],
+          ncol = 2)
+ggsave("figures/fig1.pdf", width = 6.5, height = 6.5)

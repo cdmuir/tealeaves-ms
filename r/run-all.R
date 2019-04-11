@@ -5,12 +5,4 @@ source("r/header.R")
 
 source("r/01_run-exe.R")
 source("r/02_plot-exe.R")
-
-# Render manuscript
-setwd(path_ms)
-rmarkdown::render("ms.Rmd", c("html_document"))
-setwd(path)
-
-#knit("ms.Rmd")
-#knit("ms.md")
-#knit("supplement.Rmd")
+source("r/03_plot-pars.R")

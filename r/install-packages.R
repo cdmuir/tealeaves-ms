@@ -1,5 +1,4 @@
 devtools::install_github("cdmuir/tealeaves", ref = "dev")
-install.packages("grid")
-install.packages("gridExtra")
+install.packages("cowplot")
 install.packages("magrittr")
 install.packages("tidyverse")
