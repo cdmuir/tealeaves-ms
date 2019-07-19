@@ -155,4 +155,4 @@ ggsave("figures/gp_exe4.pdf", width = 3.25, height = 3.25)
 # Combine figure panels into single figure for publication ----
 plot_grid(gp_exe1, gp_exe2, gp_exe3, gp_exe4, labels = LETTERS[1:4],
           ncol = 2)
-ggsave("figures/fig1.pdf", width = 6.5, height = 6.5)
+ggsave("figures/fig2.pdf", width = 6.5, height = 6.5)

@@ -3,6 +3,7 @@
 
 source("r/header.R")
 
-source("r/01_run-exe.R")
-source("r/02_plot-exe.R")
-source("r/03_plot-pars.R")
+source("r/01_plot-fig1.R")
+source("r/02_run-exe.R")
+source("r/03_plot-fig2.R")
+source("r/04_plot-figS1.R")

@@ -1,3 +1,6 @@
+ms/old/*
+ms/reviewer-response*
+ms/ms-track-changes*
 ms/notes.txt
 *.docx
 .DS_Store
