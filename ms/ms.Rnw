@@ -223,7 +223,7 @@ In conclusion, \tealeaves~provides new software for leaf energy balance models i
 
 \section*{Data:}  
 
-Annotated source code to generate this manuscript is available on GitHub (https://github.com/cdmuir/tealeaves-ms) and archived on Zenodo (https://doi.org/10.5281/zenodo.XXXXXX). A development version of \tealeaves~is currently available on GitHub (https://github.com/cdmuir/tealeaves) and the version used for this manuscript is archived on Zenodo (https://doi.org/10.5281/zenodo.2808079).
+Annotated source code to generate this manuscript is available on GitHub (https://github.com/cdmuir/tealeaves-ms) and archived on Zenodo (https://doi.org/10.5281/zenodo.167281492). A development version of \tealeaves~is currently available on GitHub (https://github.com/cdmuir/tealeaves) and the version used for this manuscript is archived on Zenodo (https://doi.org/10.5281/zenodo.2808079).
 
 %--------------------------------------------------
 % References
