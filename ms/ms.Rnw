@@ -46,21 +46,20 @@
 \SweaveOpts{concordance=TRUE}
 
 \title{\tealeaves: an R package for modelling leaf temperature using energy budgets}
-\author{}
-% \author[1]{Christopher. D. Muir}
-% \affil[1]{Department of Botany, University of Hawai'i, Honolulu, Hawai'i 96822, USA}
+\author[1]{Christopher. D. Muir}
+\affil[1]{Department of Botany, University of Hawai'i, Honolulu, Hawai'i 96822, USA}
 \date{} % delete this line to display the current date
 
 \begin{center}
-Tools 
+Form \& Function: Tools 
 \end{center}
 
 {\let\newpage\relax\maketitle}
 
-% Phone: +1 808-688-3478 \\
-% Email: cdmuir@hawaii.edu \\
-% \\
-% Funding: University of Hawai'i
+Phone: +1 808-688-3478 \\
+Email: cdmuir@hawaii.edu \\
+\\
+Funding: University of Hawai'i
 
 \section*{Abstract}
 
@@ -221,6 +220,10 @@ Ultimately, the goal of \tealeaves~is to provide a platform for implementing rea
 Currently, \tealeaves~has several limitations that I plan to address in future releases. It uses rather simple models of infrared radiation and direct versus diffuse radiation. Ideally, it would be better if users could supply their own functions to calculate these parameters from the total irradiance. The model also assumes leaves are horizontal, whereas leaf orientation varies widely. Following previous authors, I modeled heat transfer as a mixed convection (Eqns \ref{eq:nusselt} and \ref{eq:sherwood}), but this may not adequately describe real leaf heat exchange \citep{Roth-Nebelsick_2001}. \tealeaves~calculates equilibrium as opposed to transient behavior \citep{Vialet-Chabrand_Lawson_2019}, which may takes several minutes to reach. Finally, the model assumes a single homogenous leaf temperature rather than using finite element modelling to calculate leaf temperature gradients across leaves of different shapes. These are important limitations of the current software which can be addressed in future work.
 
 In conclusion, \tealeaves~provides new software for leaf energy balance models in R. Leaf energy balance models are highly useful tools for understanding plant form and function and new computational tools will make these models more broadly accessible, advancing basic and applied plant science.
+
+\section*{Data:}  
+
+Annotated source code to generate this manuscript is available on GitHub (https://github.com/cdmuir/tealeaves-ms) and archived on Zenodo (https://doi.org/10.5281/zenodo.XXXXXX). A development version of \tealeaves~is currently available on GitHub (https://github.com/cdmuir/tealeaves) and the version used for this manuscript is archived on Zenodo (https://doi.org/10.5281/zenodo.2808079).
 
 %--------------------------------------------------
 % References
