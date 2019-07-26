@@ -191,7 +191,7 @@ The box below provides R code to calculate leaf temperature along an air tempera
 
 To see the range of possible applications for \tealeaves, I ran four additional sets of simulations. The first models the leaf-to-air temperature differential for different leaves sizes across a gradient of air tempuratures; the second models the leaf-to-air temperature differential across a gradient of incident solar radiation for different stomatal conductances; the third models the leaf-to-air temperature differential for different sized leaves under free, mixed, and forced convection; and the fourth models the effect of stomatal ratio on evaporation under free and forced convection. These extended examples are documented more fully in the Supporting Information with accompanying R code. 
 
-To provide a sense of which leaf and environmental parameters affect \tleaf~the most under ``typical'' conditions, I varied stomatal conductance ($g_\mathrm{sw}$), leafsize ($d$), stomatal ratio ($\mathrm{sr}$), relative humidity ($\mathit{RH}$), solar radiation ($S_\mathrm{sw}$), and wind speed ($u$) over a wide range of realistic values while holding all other values constant at their default setting (Table \ref{table:table_values}).
+To provide a sense of which leaf and environmental parameters affect \tleaf~the most under ``typical'' conditions, I varied stomatal conductance ($g_\mathrm{sw}$), leafsize ($d$), stomatal ratio ($\mathrm{SR}$), relative humidity ($\mathrm{RH}$), solar radiation ($S_\mathrm{sw}$), and wind speed ($u$) over a wide range of realistic values while holding all other values constant at their default setting (Table \ref{table:table_values}).
 
 \section*{Results}
 
@@ -215,7 +215,7 @@ Previously, researchers wanting to implement sophisticated leaf energy budget mo
 The \tealeaves~model is more complex than most other leaf energy balance models in the literature, which makes it more flexible and realistic but more computationally intensive. For example, the R package \pkg{plantecophys} \citep{Duursma_2015} uses the isothermal net radiation approximation of \citeauthor{Leuning_etal_1995} (\citeyear{Leuning_etal_1995}). This reduces the number of iterations and speeds up computation by assuming that longwave radiative flux from the leaf is proportional to air rather than leaf temperature. Other recent models \citep[e.g.][]{Buckley_etal_2014, Schymanski_Or_2017} assume free convection or do not account for virtual temperature differences in moist air (Eqn. \ref{eq:Tv}) \citep{Okajima_etal_2012, Duursma_2015}. Other models, except \citeauthor{Okajima_etal_2012} \citeyear{Okajima_etal_2012}, also do not account for different surrounding temperatures above and below the leaf surface ($T_\mathrm{sky}$ and $T_\mathrm{air}$, respectively) when calculating thermal infrared radiation (see Eqn \ref{eq:Tsky}). These simplifications may be adequate for many applications and the benefit in speed may be necessary for scaling up. However, recent comparisons of simple and complex energy balance models in the field found that the complex models, like that implemented in \tealeaves, fit the observed distribution of wheat leaf canopy temperatures better \citep{Webber_etal_2017}. Future development of \tealeaves~will make it easier to implement simpler models. A full range of models, from simple to complex, will serve the broadest range of applications and allow users to test when simplifying assumptions are justified. To facilitate this, future versions of \tealeaves~will allow users to provide functions rather than values for some parameters. For example, a less computationally intensive model could be contructed by using a function for calculating boundary layer conductances that assume free convection is negligible. Or users could substitute a more appropriate function for their application, such as cloudy rather than clear skies in the case of Eqn \ref{eq:Tsky}.
 
 % limitations and other future directions
-Ultimately, the goal of \tealeaves~is to provide a platform for implementing realistic and fully customizable energy budget models. Such models may take too much computational time to be useful for large-scale ecosystem models, but they can help understand a wider range of fascinating and poorly understood leaf anatomical and morphological features. The Introduction lists several possible uses, but most of these problems cannot currently be solved with \tealeaves~alone. For example, many photosynthetic processes are temperature sensitive, but it would require simultaneous modelling of leaf temperature, stomatal conductance, and photosynthesis to predict optimal trait values. \tealeaves~intentionally does not specify these other models because the concept is that it should stand alone and be able to interact with many other models. For example, \tealeaves~could be combined with a stomatal response function such as the Ball-Berry model \citep{Ball_etal_1987} or found through optimization \citep{Buckley_etal_2014, Duursma_2015, Muir_2019c}. Similarly, the leaf temperature throughout a canopy could be modeled by running \tealeaves~over a gradient of light, wind, temperature, and so forth. \tealeaves~should therefore be thought of as one component in an expanding ecosystem of interrelated tools for modeling plant physiology.
+Ultimately, the goal of \tealeaves~is to provide a platform for implementing realistic and fully customizable energy budget models. Such models may take too much computational time to be useful for large-scale ecosystem models, but they can help understand a wider range of fascinating and poorly understood leaf anatomical and morphological features. The Introduction lists several possible uses, but most of these problems cannot currently be solved with \tealeaves~alone. For example, many photosynthetic processes are temperature sensitive, but it would require simultaneous modelling of leaf temperature, stomatal conductance, and photosynthesis to predict optimal trait values. \tealeaves~intentionally does not specify these other models because the concept is that it should stand alone and be able to interact with many other models. For example, \tealeaves~could be combined with a stomatal response function such as the Ball-Berry model \citep{Ball_etal_1987} or found through optimization \citep{Buckley_etal_2014, Duursma_2015, Muir_2019c}. Similarly, the leaf temperature throughout a canopy could be modeled by running \tealeaves~over a gradient of light, wind, temperature, and so forth. \tealeaves~should therefore be thought of as one component in an expanding ecosystem of interrelated tools for modelling plant physiology.
 
 Currently, \tealeaves~has several limitations that I plan to address in future releases. It uses rather simple models of infrared radiation and direct versus diffuse radiation. Ideally, it would be better if users could supply their own functions to calculate these parameters from the total irradiance. The model also assumes leaves are horizontal, whereas leaf orientation varies widely. Following previous authors, I modeled heat transfer as a mixed convection (Eqns \ref{eq:nusselt} and \ref{eq:sherwood}), but this may not adequately describe real leaf heat exchange \citep{Roth-Nebelsick_2001}. \tealeaves~calculates equilibrium as opposed to transient behavior \citep{Vialet-Chabrand_Lawson_2019}, which may takes several minutes to reach. Finally, the model assumes a single homogenous leaf temperature rather than using finite element modelling to calculate leaf temperature gradients across leaves of different shapes. These are important limitations of the current software which can be addressed in future work.
 
@@ -283,36 +283,36 @@ $c_p$ is the heat capacity of air. The density of dry air ($P_\mathrm{a}$) is ca
 $P$ is the atmospheric pressure and $R_\mathrm{air}$ is the specific gas constant for dry air. \tealeaves~sums the boundary layer conductance to heat for both the upper and lower surface following \citeauthor{Foster_Smith_1986} (\citeyear{Foster_Smith_1986}), assuming a horizontal leaf orientation:
 
 \begin{equation} \label{eq:g_h}
-  g_\mathrm{h} = \frac{D_h \mathit{Nu}}{d}.
+  g_\mathrm{h} = \frac{D_h \mathrm{Nu}}{d}.
 \end{equation}
 
-$\mathit{Nu}$ is the unitless Nusselt number (defined below) and $d$ is the characteristic leaf dimension, a thermally relevant measure of leaf size. The diffusion coefficient of heat in air ($D_h$) is a function of temperature and pressure:
+$\mathrm{Nu}$ is the unitless Nusselt number (defined below) and $d$ is the characteristic leaf dimension, a thermally relevant measure of leaf size. The diffusion coefficient of heat in air ($D_h$) is a function of temperature and pressure:
 
 \begin{equation} \label{eq:D_x}
     D_\mathrm{h} = D_\mathrm{h,0} \Big(\frac{T}{273.15}\Big) ^ {\mathit{eT}} \frac{101.3246}{P}.
 \end{equation}
 
-The temperature dependence of diffusion ($\mathit{eT}$) is generally between 1.5-2 for heat and water vapour \citep{Monteith_Unsworth_2013}. To calculate diffusion coefficients, \tealeaves~uses the average of the leaf and air temperature: $T = (T_\mathrm{air} + T_\mathrm{leaf}) / 2$. The Nusselt number $\mathit{Nu}$ is modeled as a mixed convection:
+The temperature dependence of diffusion ($\mathit{eT}$) is generally between 1.5-2 for heat and water vapour \citep{Monteith_Unsworth_2013}. To calculate diffusion coefficients, \tealeaves~uses the average of the leaf and air temperature: $T = (T_\mathrm{air} + T_\mathrm{leaf}) / 2$. The Nusselt number $\mathrm{Nu}$ is modeled as a mixed convection:
 
 \begin{equation}
   \label{eq:nusselt}
-  \mathit{Nu} ^ {3.5} = \mathit{Nu}_\mathrm{forced} ^ {3.5} + \mathit{Nu}_\mathrm{free} ^ {3.5}
+  \mathrm{Nu} ^ {3.5} = \mathrm{Nu}_\mathrm{forced} ^ {3.5} + \mathrm{Nu}_\mathrm{free} ^ {3.5}
 \end{equation}
 
 where
 
 \begin{align}
-  \mathit{Nu}_\mathrm{forced} =  & ~ a \mathit{Re} ^ b \\
-  \mathit{Nu}_\mathrm{free} =    & ~ c \mathit{Gr} ^ d.
+  \mathrm{Nu}_\mathrm{forced} =  & ~ a \mathrm{Re} ^ b \\
+  \mathrm{Nu}_\mathrm{free} =    & ~ c \mathrm{Gr} ^ d.
 \end{align}
 
-$a, b, c, d$ are constants that depend on whether flow is laminar or turbulent and the direction of flow in the case of free convection (see below). In general, when the Archimedes number (also called the Richardson number) $\mathit{Ar} = \mathit{Gr} / \mathit{Re} ^ 2 \ll 0.1$, free convection dominates; when $\mathit{Ar} = \mathit{Gr} / \mathit{Re} ^ 2 \gg 10$, forced convection dominates \citep{Nobel_2009}. The Nusselt number coefficients can be found in \citeauthor{Monteith_Unsworth_2013} (\citeyear{Monteith_Unsworth_2013}). For forced convection, flow is laminar if $\mathit{Re} < 4000$, $a = 0.6, b = 0.5$; flow is turbulent if $\mathit{Re} > 4000$, $a = 0.032, b = 0.8$. These cutoffs for leaves are lower than for artificial surfaces because trichomes and other anatomical features of leaf surfaces induce turbulence more readily \citep{Grace_Wilson_1976}. For free convection, flow is laminar. For the upper surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the lower surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.5, d = 0.25$. Conversely, for the lower surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the upper surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.23, d = 0.25$.
+$a, b, c, d$ are constants that depend on whether flow is laminar or turbulent and the direction of flow in the case of free convection (see below). In general, when the Archimedes number (also called the Richardson number) $\mathrm{Ar} = \mathrm{Gr} / \mathrm{Re} ^ 2 \ll 0.1$, free convection dominates; when $\mathrm{Ar} = \mathrm{Gr} / \mathrm{Re} ^ 2 \gg 10$, forced convection dominates \citep{Nobel_2009}. The Nusselt number coefficients can be found in \citeauthor{Monteith_Unsworth_2013} (\citeyear{Monteith_Unsworth_2013}). For forced convection, flow is laminar if $\mathrm{Re} < 4000$, $a = 0.6, b = 0.5$; flow is turbulent if $\mathrm{Re} > 4000$, $a = 0.032, b = 0.8$. These cutoffs for leaves are lower than for artificial surfaces because trichomes and other anatomical features of leaf surfaces induce turbulence more readily \citep{Grace_Wilson_1976}. For free convection, flow is laminar. For the upper surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the lower surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.5, d = 0.25$. Conversely, for the lower surface when $T_\mathrm{leaf} > T_\mathrm{air}$ or the upper surface when $T_\mathrm{leaf} < T_\mathrm{air}$, $c = 0.23, d = 0.25$.
 
 Grashof and Reynolds numbers approximate the ratio of bouyant or inertial (numerator in equations below), respectively, to viscous forces (denominator in equations below). They are calculated as:
 
 \begin{align} \label{eq:GrRe}
-  \mathit{Gr} & = \frac{G d ^ 3 |T_{v,\mathrm{leaf}} - T_{v,\mathrm{air}}|}{T_\mathrm{air} D_m ^ 2} \\
-  \mathit{Re} & = \frac{u d}{D_m}.
+  \mathrm{Gr} & = \frac{G d ^ 3 |T_{v,\mathrm{leaf}} - T_{v,\mathrm{air}}|}{T_\mathrm{air} D_m ^ 2} \\
+  \mathrm{Re} & = \frac{u d}{D_m}.
 \end{align}
 
 $G$ is the gravitational constant and $u$ is wind speed. The diffusion coefficient for momentum in air ($D_m$) is calculated for a given temperature following the same procedure above for heat diffusion ($D_h$; see Eq.~\ref{eq:D_x}). The virtual temperature is calculated according to \citeauthor{Monteith_Unsworth_2013} (\citeyear{Monteith_Unsworth_2013}) assuming that the leaf airspace is fully saturated while the air is has a vapour pressure decifit of $p_\mathrm{air}$:
@@ -322,7 +322,7 @@ $G$ is the gravitational constant and $u$ is wind speed. The diffusion coefficie
   T_{v, \mathrm{leaf}} & = T_\mathrm{leaf} / (1 - (1 - \epsilon) (p_\mathrm{sat} / P)).
 \end{align}
 
-$\epsilon$ is the ratio of water to air molar masses. The saturation water vapour pressure $p_\mathrm{sat}$ as a function of temperature is calculated using the Goff-Gratch equation \citep{Vomel_2016}. The vapour pressure of air is calculated from the relative humidity ($\mathit{RH}$) as $p_\mathrm{air} = \mathit{RH} p_\mathrm{sat}$.
+$\epsilon$ is the ratio of water to air molar masses. The saturation water vapour pressure $p_\mathrm{sat}$ as a function of temperature is calculated using the Goff-Gratch equation \citep{Vomel_2016}. The vapour pressure of air is calculated from the relative humidity ($\mathrm{RH}$) as $p_\mathrm{air} = \mathrm{RH} p_\mathrm{sat}$.
 
 \subsection*{Latent heat flux and evaporation}
 
@@ -342,7 +342,7 @@ The water vapour pressure differential ($d_\mathrm{wv}$) from the inside to the 
 
 \begin{equation}
   \label{eq:d_wv}
-  d_\mathrm{wv} = p_\mathrm{leaf} / (\bar{R} T_\mathrm{leaf}) - RH p_\mathrm{air} / (\bar{R} T_\mathrm{air}).
+  d_\mathrm{wv} = p_\mathrm{leaf} / (\bar{R} T_\mathrm{leaf}) - \mathrm{RH} p_\mathrm{air} / (\bar{R} T_\mathrm{air}).
 \end{equation}
 
 $\bar{R}$ is the ideal gas constant. The total conductance to water vapor ($g_\mathrm{tw}$) is the sum of the parallel lower (usually abaxial) and upper (usually adaxial) conductances
@@ -355,14 +355,14 @@ $\bar{R}$ is the ideal gas constant. The total conductance to water vapor ($g_\m
 The conductance to water vapor on each surface is a function of parallel stomatal ($g_\mathrm{sw}$) and cuticular ($g_\mathrm{uw}$) conductances in series with the boundary layer conductance ($g_\mathrm{bw}$). The stomatal, cuticular, and boundary layer conductance on the lower surface are:
 
 \begin{align}
-  g_\mathrm{sw,lower} & = [g_\mathrm{sw} (1 - \mathit{sr})] [R (T_\mathrm{leaf} + T_\mathrm{air}) / 2] \\
+  g_\mathrm{sw,lower} & = [g_\mathrm{sw} (1 - \mathrm{SR})] [R (T_\mathrm{leaf} + T_\mathrm{air}) / 2] \\
   g_\mathrm{uw,lower} & = (g_\mathrm{uw} / 2) [R (T_\mathrm{leaf} + T_\mathrm{air}) / 2].
 \end{align}
 
-Note that the user provides the total leaf stomatal and cuticular conductance to water vapur in units of $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$, which are then converted to units of m s$^{-1}$ using the ideal gas law. Stomatal conductance is partitioned among leaf surfaces depending on stomatal ratio ($\mathit{sr}$); cuticular conductance is assumed equal on each leaf surface. The corresponding expressions for the upper surface are:
+Note that the user provides the total leaf stomatal and cuticular conductance to water vapur in units of $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$, which are then converted to units of m s$^{-1}$ using the ideal gas law. Stomatal conductance is partitioned among leaf surfaces depending on stomatal ratio ($\mathrm{SR}$); cuticular conductance is assumed equal on each leaf surface. The corresponding expressions for the upper surface are:
 
 \begin{align}
-  g_\mathrm{sw,upper} & = (g_\mathrm{sw} \mathit{sr}) [R (T_\mathrm{leaf} + T_\mathrm{air}) / 2] \\
+  g_\mathrm{sw,upper} & = (g_\mathrm{sw} \mathrm{SR}) [R (T_\mathrm{leaf} + T_\mathrm{air}) / 2] \\
   g_\mathrm{uw,upper} & = g_\mathrm{uw,lower}.
 \end{align}
 
@@ -371,21 +371,21 @@ Partitioning total stomatal and cuticular conductance to water vapor across surf
 The boundary layer conductances for each surface differ because of free convection \citep{Foster_Smith_1986} and are calcualted similarly to that for heat (Eq.~\ref{eq:g_h}):
 
 \begin{equation}
-  g_\mathrm{bw} = \frac{D_w \mathit{Sh}}{d}.
+  g_\mathrm{bw} = \frac{D_w \mathrm{Sh}}{d}.
 \end{equation}
 
-The diffusion coefficient for water vapor in air at a given temperature ($D_w$) is calculated using the Eq.~\ref{eq:D_x}, except that is $D_{w,0}$ is substituted for $D_{h,0}$. Each surface has its own Sherwood number ($\mathit{Sh}$):
+The diffusion coefficient for water vapor in air at a given temperature ($D_w$) is calculated using the Eq.~\ref{eq:D_x}, except that is $D_{w,0}$ is substituted for $D_{h,0}$. Each surface has its own Sherwood number ($\mathrm{Sh}$):
 
 \begin{align}
-  \mathit{Sh}_\mathrm{forced} & = \mathit{Nu}_\mathrm{forced} (D_h / D_w) ^ \frac{1}{3} \\
-  \mathit{Sh}_\mathrm{free} & = \mathit{Nu}_\mathrm{free} (D_h / D_w) ^ \frac{1}{4}.
+  \mathrm{Sh}_\mathrm{forced} & = \mathrm{Nu}_\mathrm{forced} (D_h / D_w) ^ \frac{1}{3} \\
+  \mathrm{Sh}_\mathrm{free} & = \mathrm{Nu}_\mathrm{free} (D_h / D_w) ^ \frac{1}{4}.
 \end{align}
 
-As with $\mathit{Nu}$, $\mathit{Sh}$ is calculated assuming mixed convection:
+As with $\mathrm{Nu}$, $\mathrm{Sh}$ is calculated assuming mixed convection:
 
 \begin{equation}
   \label{eq:sherwood}
-  \mathit{Sh} ^ {3.5} = \mathit{Sh}_\mathrm{forced} ^ {3.5} + \mathit{Sh}_\mathrm{free} ^ {3.5}.
+  \mathrm{Sh} ^ {3.5} = \mathrm{Sh}_\mathrm{forced} ^ {3.5} + \mathrm{Sh}_\mathrm{free} ^ {3.5}.
 \end{equation}
 
 Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total conductance to water vapour (Eqn \ref{eq:g_tw}) and the water vapour gradient (Eqn \ref{eq:d_wv}):
@@ -405,7 +405,7 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
 \end{figure}
 
 \begin{figure}[t!]
-\caption{The leaf energy budget model in \tealeaves~takes environmental and leaf parameters to find the equilibrium leaf temperature ($T_\mathrm{leaf}$) at which incoming energy exactly matches outgoing energy. Under typical daytime conditions, this means thermal infrared radiation losses, sensible heat loss, and latent heat loss must balance absorbed radiation. A. The components of leaf energy budgets (thin orange lines) vary with leaf temperature (\textit{x}-axis). $T_\mathrm{leaf}$ is where the net energy flux (thick blue line) is 0 (blue point; see Eqn 1). B. 1) Radiation is emitted from sunlight and surrounding objects is absorbed by the leaf. 2) The leaf radiates some energy. 3) Heat is lost through convection when the leaf temperature is greater than air temperature. 4) Latent heat is lost through evaporation, which is driven by the vapor pressure deficit between the air and leaf interior and the leaf conductance to water vapor. Calculations used the following leaf parameter values in this example: $d = \Sexpr{fig1_pars$leafsize}$ m; $\alpha_\mathrm{s} = \Sexpr{fig1_pars$abs_s}$; $\alpha_\mathrm{l} = \Sexpr{fig1_pars$abs_l}$; $g_\mathrm{sw} = \Sexpr{fig1_pars$g_sw}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $g_\mathrm{uw} = \Sexpr{fig1_pars$g_uw}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $\mathit{SR} = \Sexpr{plogis(fig1_pars$logit_sr)}$. Calculations used the following environmental parameter values in this example: $P = \Sexpr{fig1_pars$P}$ kPa; $r = \Sexpr{fig1_pars$r}$; $\mathit{RH} = \Sexpr{fig1_pars$RH}$; $S_\mathrm{sw} = \Sexpr{fig1_pars$S_sw}$ W m$^{-2}$; $T_\mathrm{air} = \Sexpr{fig1_pars$T_air}$ K; $u = \Sexpr{fig1_pars$wind}$ m s$^{-1}$. See Table \ref{table:table_input} for symbol definitions.}
+\caption{The leaf energy budget model in \tealeaves~takes environmental and leaf parameters to find the equilibrium leaf temperature ($T_\mathrm{leaf}$) at which incoming energy exactly matches outgoing energy. Under typical daytime conditions, this means thermal infrared radiation losses, sensible heat loss, and latent heat loss must balance absorbed radiation. A. The components of leaf energy budgets (thin orange lines) vary with leaf temperature (\textit{x}-axis). $T_\mathrm{leaf}$ is where the net energy flux (thick blue line) is 0 (blue point; see Eqn 1). B. 1) Radiation is emitted from sunlight and surrounding objects is absorbed by the leaf. 2) The leaf radiates some energy. 3) Heat is lost through convection when the leaf temperature is greater than air temperature. 4) Latent heat is lost through evaporation, which is driven by the vapor pressure deficit between the air and leaf interior and the leaf conductance to water vapor. Calculations used the following leaf parameter values in this example: $d = \Sexpr{fig1_pars$leafsize}$ m; $\alpha_\mathrm{s} = \Sexpr{fig1_pars$abs_s}$; $\alpha_\mathrm{l} = \Sexpr{fig1_pars$abs_l}$; $g_\mathrm{sw} = \Sexpr{fig1_pars$g_sw}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $g_\mathrm{uw} = \Sexpr{fig1_pars$g_uw}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $\mathrm{SR} = \Sexpr{plogis(fig1_pars$logit_sr)}$. Calculations used the following environmental parameter values in this example: $P = \Sexpr{fig1_pars$P}$ kPa; $r = \Sexpr{fig1_pars$r}$; $\mathrm{RH} = \Sexpr{fig1_pars$RH}$; $S_\mathrm{sw} = \Sexpr{fig1_pars$S_sw}$ W m$^{-2}$; $T_\mathrm{air} = \Sexpr{fig1_pars$T_air}$ K; $u = \Sexpr{fig1_pars$wind}$ m s$^{-1}$. See Table \ref{table:table_input} for symbol definitions.}
 \label{fig:fig1}
 \end{figure}
 
@@ -416,7 +416,7 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
 \end{figure}
 
 \begin{figure}[t!]
-\caption{Extended examples of \tealeaves. Code to generate these examples is provided in the Supporting Information. A. The temperature of smaller leaves is more closely coupled to air temperature. Each line represents a different leaf size (small, dashed line; medium, dotted line; large, solid line) and the leaf-to-air temperature differential ($y$-axis) over an air temperature gradient ($x$-axis). B. Greater stomatal conductance cools leaves. Each line represents a different stomatal conductance (low, dashed line, 1 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; medium, dotted line, 3 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; high, solid line, 5 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$) and the leaf-to-air temperature differential ($y$-axis) over a gradient of incident solar radiation ($x$-axis). C. Forced convection dominates in small leaves; free convection dominates in very large leaves. Leaf size is indicated by line type as in Panel A. Vertical lines indicate approximate shifts from forced convection ($\mathit{Ar} < 0.1$), mixed convection ($0.1 < \mathit{Ar} < 10$), and free convection ($\mathit{Ar} > 10$). Small leaves always experience forced convection, leading to lower leaf temperature compared to large leaves experiencing free convection. D. Amphistomatous leaves (Stomatal Ratio $\sim$ 0.5) evaporate more than hypo- or hyperstomatous leaves (Stomatal Ratio $\sim$ 0 or 1, respectively), especially under free convection (low wind speed, $u$).}
+\caption{Extended examples of \tealeaves. Code to generate these examples is provided in the Supporting Information. A. The temperature of smaller leaves is more closely coupled to air temperature. Each line represents a different leaf size (small, dashed line; medium, dotted line; large, solid line) and the leaf-to-air temperature differential ($y$-axis) over an air temperature gradient ($x$-axis). B. Greater stomatal conductance cools leaves. Each line represents a different stomatal conductance (low, dashed line, 1 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; medium, dotted line, 3 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$; high, solid line, 5 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$) and the leaf-to-air temperature differential ($y$-axis) over a gradient of incident solar radiation ($x$-axis). C. Forced convection dominates in small leaves; free convection dominates in very large leaves. Leaf size is indicated by line type as in Panel A. Vertical lines indicate approximate shifts from forced convection ($\mathrm{Ar} < 0.1$), mixed convection ($0.1 < \mathrm{Ar} < 10$), and free convection ($\mathrm{Ar} > 10$). Small leaves always experience forced convection, leading to lower leaf temperature compared to large leaves experiencing free convection. D. Amphistomatous leaves (Stomatal Ratio $\sim$ 0.5) evaporate more than hypo- or hyperstomatous leaves (Stomatal Ratio $\sim$ 0 or 1, respectively), especially under free convection (low wind speed, $u$).}
 \label{fig:fig2}
 \end{figure}
 
@@ -443,20 +443,21 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
   $\alpha_\mathrm{s}$ & \code{abs\_s}    & absorbtivity of shortwave radiation (0.3 - 4 $\mu$m) & none \\
   $g_\mathrm{sw}$     & \code{g\_sw}     & stomatal conductance to water vapour & $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$ $^\dagger$ \\
   $g_\mathrm{uw}$     & \code{g\_uw}     & cuticular conductance to water vapour & $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$ $^\dagger$ \\
-  $\mathit{sr}$       & \code{logit\_sr} & stomatal ratio (logit transformed) & none \\
+  $\mathrm{SR}$       &                  & stomatal ratio (untransformed) & none \\
+  $\mathrm{sr}$       & \code{logit\_sr} & stomatal ratio (logit transformed) & none \\
   \\
   \multicolumn{4}{l}{\textbf{Environmental parameters:}} \\
   \\
   $P$              & \code{P}       & atmospheric pressure & kPa \\
   $r$              & \code{r}       & reflectance for short-wave irradiance (albedo) & none \\
-  $\mathit{RH}$    & \code{RH}      & relative humidity    & none \\
+  $\mathrm{RH}$    & \code{RH}      & relative humidity    & none \\
   $S_\mathrm{sw}$  & \code{S\_sw}   & incident short-wave (solar) radiation flux density & W m$^{-2}$ \\
   $T_\mathrm{air}$ & \code{T\_air}  & air temperature      & K \\
   $u$              & \code{wind}    & wind speed            & m s$^{-1}$ \\
   \\
   \multicolumn{4}{l}{\textbf{Physical constants:}} \\
   \\
-  $a, b, c, d$     & \code{a, b, c, d} & coefficients for calculating $\mathit{Nu}$ and $\mathit{Sh}$ numbers & none \\
+  $a, b, c, d$     & \code{a, b, c, d} & coefficients for calculating $\mathrm{Nu}$ and $\mathrm{Sh}$ numbers & none \\
   $c_p$            & \code{c\_p}    & heat capacity of air & 1.01 J g$^{-1}$ K$^{-1}$ \\
   $D_{h,0}$        & \code{D\_h0}   & diffusion coefficient for heat in air at 0 °C & $19.0 \times 10^{-6}$ m$^2$ s$^{-1}$ \\
   $D_{m,0}$        & \code{D\_m0}   & diffusion coefficient for momentum in air at 0 °C & $13.3 \times 10^{-6}$ m$^2$ s$^{-1}$ \\
@@ -478,7 +479,7 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
 \end{table}
 
 \begin{table}[ht]
-\caption{Calculated parameter and outputs for \tealeaves. Some parameters are intermediate calculations (see Methods) but are not included in the \tealeaves~output (see R documentation accompanying package for further detail). Each parameter has a mathematical symbol used in the text, the R character string used in the \tealeaves~package, a brief description, and the units.}
+\caption{Calculated parameters and outputs for \tealeaves. Some parameters are intermediate calculations (see Methods) but are not included in the \tealeaves~output (see R documentation accompanying package for further detail). Each parameter has a mathematical symbol used in the text, the R character string used in the \tealeaves~package, a brief description, and the units.}
 \begin{center}
 \resizebox{6in}{!}{
 \begin{tabular}{llll}
@@ -493,14 +494,14 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
   $g_\mathrm{h}$      & \code{g\_h}      & boundary layer conductance to heat & m s$^{-1}$ \\
   $g_\mathrm{bw}$     & \code{g\_bw}     & boundary layer conductance to water vapour & m s$^{-1}$ \\
   $g_\mathrm{tw}$     & \code{g\_tw}     & total conductance to water vapour & m s$^{-1}$ \\
-  $\mathit{Gr}$       & \code{Gr}        & Grashof number & none \\
+  $\mathrm{Gr}$       & \code{Gr}        & Grashof number & none \\
   $H$                 & \code{H}         & sensible heat flux & W m$^{-2}$ \\
   $L$                 & \code{L}         & latend heat flux & W m$^{-2}$ \\
-  $\mathit{Nu}$       & \code{Nu}        & Nusselt number & none \\
+  $\mathrm{Nu}$       & \code{Nu}        & Nusselt number & none \\
   $R_\mathrm{abs}$    & \code{R\_abs}    & absorbed radiation & W m$^{-2}$ \\
-  $\mathit{Re}$       & \code{Re}        & Reynolds number & none \\
+  $\mathrm{Re}$       & \code{Re}        & Reynolds number & none \\
   $S_\mathrm{r}$      & \code{S\_r}      & thermal infrared radiation losses & W m$^{-2}$ \\
-  $\mathit{Sh}$       & \code{Sh}        & Sherwood number & none \\
+  $\mathrm{Sh}$       & \code{Sh}        & Sherwood number & none \\
   \tleaf              & \code{T\_leaf}   & leaf temperature & K \\
   \\
   \multicolumn{4}{l}{\textbf{Environmental parameters:}} \\
@@ -570,13 +571,13 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
   $\alpha_\mathrm{s}$ & \Sexpr{lp$abs_s} & 0.4 -- 0.6 & \cite{Jones_2014} \\
   $g_\mathrm{sw}$ & \Sexpr{lp$g_sw} & 0.01 -- 10 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$ & \cite{Lin_etal_2015, Duursma_etal_2019} \\
   $g_\mathrm{uw}$ & \Sexpr{lp$g_uw} & 0.01 -- 1 $\mu$mol m$^{-2}$ s$^{-1}$ Pa$^{-1}$ & \cite{Duursma_etal_2019} \\
-  $\mathit{SR}$ & \Sexpr{plogis(lp$logit_sr)} & 0 -- 1 (untransformed) & \cite{Muir_2015} \\
+  $\mathrm{SR}$ & \Sexpr{plogis(lp$logit_sr)} & 0 -- 1 (untransformed) & \cite{Muir_2015} \\
   \\
   \multicolumn{4}{l}{\textbf{Environmental parameters:}} \\
   \\
   $P$ & \Sexpr{ep$P} & 50 (5000 mas$^\dagger$) -- 100 (0 mas) kPa & \cite{Korner_2007, Stull_2011} \\
   $r$ & \Sexpr{ep$r} & 0.1 (lava) -- 0.6 (ice) & \cite{Stull_2011} \\
-  $\mathit{RH}$ & \Sexpr{ep$RH} & 0 -- 1 & \cite{Jones_2014} \\
+  $\mathrm{RH}$ & \Sexpr{ep$RH} & 0 -- 1 & \cite{Jones_2014} \\
   $S_\mathrm{sw}$ & \Sexpr{ep$S_sw} & 0 -- 1000 W m$^{-2}$ & \cite{Jones_2014} \\
   $T_\mathrm{air}$ & \Sexpr{ep$T_air} & 270 -- 320 K & \cite{Jones_2014} \\
   $u$ & \Sexpr{ep$wind} & 0 -- 10 m s$^{-1}$ & \cite{Vogel_2009} \\
@@ -607,7 +608,7 @@ Evaporation rate (mol H$_2$O m$^{-2}$ s$^{-1}$) is the product of the total cond
 \end{landscape}
 
 \begin{figure}[t!]
-\caption{The effect of key leaf (\textbf{A -- C}) and environmental (\textbf{D -- F}) parameters on leaf temperature, holding other parameters constant. \textbf{A}) Greater stomatal conductance ($g_\mathrm{sw}$, \textit{x}-axis) reduces leaf temperature through latent heat loss. \textbf{B}) Larger leaves ($d$, \textit{x}-axis) have thicker boundary layers, causing them to heat up more in the sun. \textbf{C}) Amphistomatous leaves ($\mathit{SR} = 0.5$, \textit{x}-axis) lose more water through transpiration than leaves with all stomata on one surface, leading to a lower leaf temperature. \textbf{D}) Greater humidity ($\mathit{RH}$, \textit{x}-axis) increases leaf temperature by limiting latent heat loss. \textbf{E}) With low solar radiation ($S_\mathrm{sw}$, \textit{x}-axis), leaf temperature is below air temperature; with high solar radiation, leaf temperature is greater than air temperature. \textbf{F}) At greater wind speeds ($u$, \textit{x}-axis) leaf temperature is more closely coupled to air temperature. The discontinuity represents the shift from laminar to turbulent flow. For reference, the dashed line is the air temperature in all simulations. All calculations used the following leaf parameter values unless they varied: $d = \Sexpr{first(pars$leafsize[pars$variable != "leafsize"])}$ m; $\alpha_\mathrm{s} = \Sexpr{first(pars$abs_s)}$; $\alpha_\mathrm{l} = \Sexpr{first(pars$abs_l)}$; $g_\mathrm{sw} = \Sexpr{first(pars$g_sw[pars$variable != "g_sw"])}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $g_\mathrm{uw} = \Sexpr{first(pars$g_uw)}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $\mathit{SR} = \Sexpr{first(plogis(pars$logit_sr[pars$variable != "sr"]))}$. All calculations used the following environmental parameter values unless they varied: $P = \Sexpr{first(pars$P)}$ kPa; $r = \Sexpr{first(pars$r)}$; $\mathit{RH} = \Sexpr{first(pars$RH[pars$variable != "RH"])}$; $S_\mathrm{sw} = \Sexpr{first(pars$S_sw[pars$variable != "S_sw"])}$ W m$^{-2}$; $T_\mathrm{air} = \Sexpr{first(pars$T_air)}$ K; $u = \Sexpr{first(pars$wind[pars$variable != "wind"])}$ m s$^{-1}$. See Table \ref{table:table_input} for symbol definitions.}
+\caption{The effect of key leaf (\textbf{A -- C}) and environmental (\textbf{D -- F}) parameters on leaf temperature, holding other parameters constant. \textbf{A}) Greater stomatal conductance ($g_\mathrm{sw}$, \textit{x}-axis) reduces leaf temperature through latent heat loss. \textbf{B}) Larger leaves ($d$, \textit{x}-axis) have thicker boundary layers, causing them to heat up more in the sun. \textbf{C}) Amphistomatous leaves ($\mathrm{SR} = 0.5$, \textit{x}-axis) lose more water through transpiration than leaves with all stomata on one surface, leading to a lower leaf temperature. \textbf{D}) Greater humidity ($\mathrm{RH}$, \textit{x}-axis) increases leaf temperature by limiting latent heat loss. \textbf{E}) With low solar radiation ($S_\mathrm{sw}$, \textit{x}-axis), leaf temperature is below air temperature; with high solar radiation, leaf temperature is greater than air temperature. \textbf{F}) At greater wind speeds ($u$, \textit{x}-axis) leaf temperature is more closely coupled to air temperature. The discontinuity represents the shift from laminar to turbulent flow. For reference, the dashed line is the air temperature in all simulations. All calculations used the following leaf parameter values unless they varied: $d = \Sexpr{first(pars$leafsize[pars$variable != "leafsize"])}$ m; $\alpha_\mathrm{s} = \Sexpr{first(pars$abs_s)}$; $\alpha_\mathrm{l} = \Sexpr{first(pars$abs_l)}$; $g_\mathrm{sw} = \Sexpr{first(pars$g_sw[pars$variable != "g_sw"])}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $g_\mathrm{uw} = \Sexpr{first(pars$g_uw)}~\mu \textrm{mol}~\textrm{m} ^ {-2}~\textrm{s} ^ {-1}~\textrm{Pa} ^ {-1}$; $\mathrm{SR} = \Sexpr{first(plogis(pars$logit_sr[pars$variable != "sr"]))}$. All calculations used the following environmental parameter values unless they varied: $P = \Sexpr{first(pars$P)}$ kPa; $r = \Sexpr{first(pars$r)}$; $\mathrm{RH} = \Sexpr{first(pars$RH[pars$variable != "RH"])}$; $S_\mathrm{sw} = \Sexpr{first(pars$S_sw[pars$variable != "S_sw"])}$ W m$^{-2}$; $T_\mathrm{air} = \Sexpr{first(pars$T_air)}$ K; $u = \Sexpr{first(pars$wind[pars$variable != "wind"])}$ m s$^{-1}$. See Table \ref{table:table_input} for symbol definitions.}
 \label{fig:figS1}
 \end{figure}
 
