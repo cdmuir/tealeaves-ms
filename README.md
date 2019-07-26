@@ -2,9 +2,9 @@
 
 [![DOI](https://zenodo.org/badge/167281492.svg)](https://zenodo.org/badge/latestdoi/167281492)
 
-[{tealeaves}: an R package for modeling leaf temperature using energy budgets](https://doi.org/10.1101/529487). Accepted in *AoB PLANTS*.
+[**tealeaves**: an R package for modeling leaf temperature using energy budgets](https://doi.org/10.1101/529487). Accepted in *AoB PLANTS*.
 
-This is a manuscript associated with the R package [{tealeaves}](https://github.com/cdmuir/tealeaves). This project was developed by [Chris Muir](https://www.chrisdmuir.com).
+This is a manuscript associated with the R package [**tealeaves**](https://github.com/cdmuir/tealeaves). This project was developed by [Chris Muir](https://www.chrisdmuir.com).
 
 More information about the study is available on [github](https://github.com/cdmuir/tealeaves-ms/blob/master/ms/ms.pdf).
 
